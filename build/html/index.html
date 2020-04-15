@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to Textile_Stock_Service’s documentation! &#8212; Textile_Stock_Service 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-textile-stock-service-s-documentation">
+<h1>Welcome to Textile_Stock_Service’s documentation!<a class="headerlink" href="#welcome-to-textile-stock-service-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-Test_TSS"></span><div class="section" id="test-tss-package">
+<h2>Test_TSS Package<a class="headerlink" href="#test-tss-package" title="Permalink to this headline">¶</a></h2>
+<p>Documentation Générale</p>
+<dl class="py class">
+<dt id="Test_TSS.HistoriqueInOut">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">HistoriqueInOut</code><a class="headerlink" href="#Test_TSS.HistoriqueInOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class conteneur, qui contient tout les lignes de transaction d’entrée et sortie de stock</p>
+<dl class="py method">
+<dt id="Test_TSS.HistoriqueInOut.In">
+<code class="sig-name descname">In</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Vetement</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.HistoriqueInOut.In" title="Permalink to this definition">¶</a></dt>
+<dd><p>procédure d’entrée en stock. Si on ajoute un quantité, ou un Vetement Non existant dans le Stock</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Vetement</strong> (<a class="reference internal" href="#Test_TSS.Vetement" title="Test_TSS.Vetement"><em>Vetement</em></a><em>(</em><em>)</em>) – Le Vetement qui fait un In</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.HistoriqueInOut.Out">
+<code class="sig-name descname">Out</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Vetement</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.HistoriqueInOut.Out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procédure de sortie de stock, si on supprime ou qu’on diminue une quantité</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Vetement</strong> (<a class="reference internal" href="#Test_TSS.Vetement" title="Test_TSS.Vetement"><em>Vetement</em></a><em>(</em><em>)</em>) – Le Vetement qui fait un In</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.InOutStock">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">InOutStock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numId</span></em>, <em class="sig-param"><span class="n">InOut</span></em>, <em class="sig-param"><span class="n">lst</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.InOutStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Les Object de transaction. à chaque entrée ou sortie de stock un object InOutStock doit être crée</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.Stock">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">Stock</code><a class="headerlink" href="#Test_TSS.Stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>La Class Stock contient tout les objets Vetements. C’est un peux la Table principale du programme</p>
+<dl class="py method">
+<dt id="Test_TSS.Stock.updateLst">
+<code class="sig-name descname">updateLst</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.Stock.updateLst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Met à jour toute les listes lstCouleur, lstTaille, lstMarque, lstCatégorie afin de les integrer sans répétition dans le programme.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.Vetement">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">Vetement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">EAN</span></em>, <em class="sig-param"><span class="n">strLibelle</span></em>, <em class="sig-param"><span class="n">strMarque</span></em>, <em class="sig-param"><span class="n">strCouleur</span></em>, <em class="sig-param"><span class="n">strCategorie</span></em>, <em class="sig-param"><span class="n">dblPrixHTVA</span></em>, <em class="sig-param"><span class="n">dblTauxTVA</span></em>, <em class="sig-param"><span class="n">Quantite</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taille</span><span class="o">=</span><span class="default_value">'M'</span></em>, <em class="sig-param"><span class="n">lstAssorti</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.Vetement" title="Permalink to this definition">¶</a></dt>
+<dd><p>class qui représente le vêtement, les objets Vetements sont là base du programme</p>
+<dl class="py method">
+<dt id="Test_TSS.Vetement.lst">
+<code class="sig-name descname">lst</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.Vetement.lst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Liste de plusieurs attribut du vetement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list de EAN 0 , strLibelle 1, Quantite 2, strMarque 3, dblPrixHTVA 4, Taille 5, strCategorie 6 , strCouleur 7</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.baseRoot">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">baseRoot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stockVetement</span></em>, <em class="sig-param"><span class="n">Historique</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.baseRoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class d’initiation à la root Tkinter, C’est cet objet qui supporte tout le programme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Tk</strong> (<em>Tk</em><em>(</em><em>)</em>) – Tkinter.Tk</p></li>
+<li><p><strong>stockVetement</strong> (<a class="reference internal" href="#Test_TSS.Stock" title="Test_TSS.Stock"><em>Stock</em></a><em>(</em><em>)</em>) – c’est un objet stock contenant des vetements</p></li>
+<li><p><strong>Historique</strong> (<a class="reference internal" href="#Test_TSS.HistoriqueInOut" title="Test_TSS.HistoriqueInOut"><em>HistoriqueInOut</em></a><em>(</em><em>)</em>) – c’est l’historique de toute les transactions</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.lstDePrimitif">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">lstDePrimitif</code><a class="headerlink" href="#Test_TSS.lstDePrimitif" title="Permalink to this definition">¶</a></dt>
+<dd><p>class permettant de creer une liste qui ne contient pas 2 fois le même primitif</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Test_TSS.mainFrame">
+<em class="property">class </em><code class="sig-prename descclassname">Test_TSS.</code><code class="sig-name descname">mainFrame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stockVetement</span></em>, <em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>C’est la Frame qui contient la Gestion du stock.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Frame</strong> – Tkiner.Frame</p>
+</dd>
+</dl>
+<p>:type Frame:Frame()
+:param stockVetement: c’est un objet stock contenant des vetements 
+:type stockVetement: Stock()
+:params parent: C’est la fenetre parent Dans notre cas ici, nous utilisons le plus souvent baseRoot
+:type parent: baseRoot()</p>
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.Ajouter">
+<code class="sig-name descname">Ajouter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.Ajouter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creation de la Frame D’ajout</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.Modifier">
+<code class="sig-name descname">Modifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.Modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de création de la Frame de modification</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.ModifierVetement">
+<code class="sig-name descname">ModifierVetement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.ModifierVetement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de confirmation de modification d’un vetement. 
+Si le EAN vetement existe déjà, la modification ne se fera que sur la quantité et sera prise en compte par l’Historique</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.Supprimer">
+<code class="sig-name descname">Supprimer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.Supprimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de suppression d’un vetement avec messages informatif</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.ajouterVetement">
+<code class="sig-name descname">ajouterVetement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.ajouterVetement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction d’ajout de Vetement dans le stock
+à condition que tout les cases soit remplie.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.closeFrame">
+<code class="sig-name descname">closeFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.closeFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>cache la Frame Stock pour permettre l’ouverture d’une autre</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.frmrecherche">
+<code class="sig-name descname">frmrecherche</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.frmrecherche" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de création de la Frame de Recherche</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.recherche">
+<code class="sig-name descname">recherche</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.recherche" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction du bouton Rechercher, qui va rechercher un Vetement correspondant aux Input utilisateur dans l’objet stock</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.updateAssortiEan">
+<code class="sig-name descname">updateAssortiEan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.updateAssortiEan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cette fonction va placer le numéro EAN d’un vetement bien assorti dans le Entry self.entreeAj[“AssortiEAN”]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Test_TSS.mainFrame.updateStock">
+<code class="sig-name descname">updateStock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Test_TSS.mainFrame.updateStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui va mettre à jour le Tree de la Frame Gestion Stock avec les données de l’object stock à afficher.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Textile_Stock_Service</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Rochez.j.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
