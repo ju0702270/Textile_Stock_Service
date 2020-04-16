@@ -22,6 +22,8 @@ from tkinter import ttk,messagebox,Tk
 from decimal import Decimal,ROUND_HALF_UP
 from datetime import datetime
 
+
+
 ###########Variables globales #############
 CouleurBlanc = "#FFFFFF"
 
@@ -87,6 +89,29 @@ class Stock:
         for vtm in self.lstVetement:
             valeurStock += vtm.quantite * vtm.prixHTVA
         return valeurStock 
+
+  
+    def lstNonRep(self):
+        """Cree un disctionnaire non répétitif de plusieurs attribut de stock
+        
+        :return: disctionnaire de marque, color,car,taille,tva
+        :rtype: dict
+        """
+        lstNonRep = {}
+        for a in ["marque","color","cat","taille","tva"]:
+            lstNonRep[a]= []
+        for v in self.lstVetement:
+            if v.marque not in lstNonRep["marque"]:
+                lstNonRep["marque"].append(v.marque)
+            if v.couleur not in lstNonRep["color"]:
+                lstNonRep["color"].append(v.couleur)
+            if v.categorie not in lstNonRep["cat"]:
+                lstNonRep["cat"].append(v.categorie)
+            if v.taille not in lstNonRep["taille"]:
+                lstNonRep["taille"].append(v.taille)
+            if v.tauxTVA not in lstNonRep["tva"]:
+                lstNonRep["tva"].append(v.tauxTVA)
+        return lstNonRep
 
 
 class Vetement:
