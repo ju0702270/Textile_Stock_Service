@@ -1,5 +1,5 @@
 """
-Test_TSS Package
+TSS Package
 --------------------------
 Documentation Générale
 """
@@ -89,7 +89,7 @@ class FrmStock(Frame):
                 self.tree.column('#%s' %(i), minwidth=60,width=60)  
          
         self.tree.pack()
-    
+        self.updateStock()
         self.frmButton = Frame(self, bg = CouleurBlanc, relief = GROOVE, border = 2)
         self.frmButton.grid(row = 0, column = 0, ipadx = 30 , ipady = 23)
         Frame(self.frmButton,height = 30,bg = CouleurBlanc).pack()
@@ -116,6 +116,48 @@ class FrmStock(Frame):
         messagebox.showinfo("TSS", "application en construction")
         #print(self.tree.focus())
 
+    def updateStock(self):
+        """
+        Fonction qui va mettre à jour le Tree de la Frame Gestion Stock avec les toutes  données de l'object stock
+        """
+        self.tree.delete(*self.tree.get_children())
+        for i,vetm in enumerate(self.parent.stock.lstVetement):
+            self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+    
+
+
+    def recherche(self, event = None):
+        """
+        Fonction du bouton Rechercher, qui va rechercher un Vetement correspondant aux Input utilisateur dans l'objet stock
+        """
+        PrixMin = 0.0
+        PrixMax = 9999999.0
+        self.tree.delete(*self.tree.get_children())
+        try:
+            if len(self.minPrixfrRech.get()) !=0:
+                PrixMin = float(self.minPrixfrRech.get())
+            if len(self.maxPrixfrRech.get()) !=0 :
+                PrixMax = float(self.maxPrixfrRech.get())
+        except :
+            messagebox.showerror(title="Error", message="Erreur d'encodage dans le Prix!")        
+        for i,vetm in enumerate(self.parent.stock.lstVetement):
+                if PrixMin <= vetm.prixHTVA and PrixMax >= vetm.prixHTVA:
+                    self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+                    if len(self.libfrRech.get())!=0 and str(vetm.libelle).upper() != self.libfrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.MarquefrRech.get()) and str(vetm.marque).upper() != self.MarquefrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.catfrRech.get()) and str(vetm.categorie).upper() != self.catfrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.taillefrRech.get()) and str(vetm.taille).upper() != self.taillefrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.couleurfrRech.get()) and str(vetm.couleur).upper() != self.couleurfrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.tvafrRech.get()) and str(vetm.tauxTVA).upper() != self.tvafrRech.get().upper():
+                        self.tree.delete(i)
+                    elif len(self.quantfrRech.get()) and int(vetm.quantite)< int(self.quantfrRech.get()):
+                        self.tree.delete(i)    
+        
 
     def frmrecherche(self): # à améliorer
             """Fonction de création de la Frame de Recherche
@@ -152,7 +194,7 @@ class FrmStock(Frame):
                 else:
                     w.grid(row = i-int(len(lstCombo)/2)+1, column = 3,padx = 20, pady = 1)
                 w.bind("<Return>", self.test)
-            ttk.Button(self.frmRecherche, text ="Confirmer" , command = self.test).grid(row = 0, rowspan = 7, column = 4)
+            ttk.Button(self.frmRecherche, text ="Confirmer" , command = self.recherche).grid(row = 0, rowspan = 7, column = 4)
             
 
 if __name__ == "__main__":

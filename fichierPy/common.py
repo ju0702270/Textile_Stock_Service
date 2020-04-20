@@ -202,10 +202,10 @@ class HistoriqueInOut:
 class InOutStock:
     """Les Object de transaction. à chaque entrée ou sortie de stock un object InOutStock doit être crée
     """
-    def __init__(self, numId, InOut, lst = []):
+    def __init__(self, numId, InOut, vtm):
         self.intNumInOutStock = numId
         self.dateTime = datetime.now()
-        self.lstVetement = lst
+        self.vetement = vtm
         self.InOut = InOut #True = In False = Out
 
 
