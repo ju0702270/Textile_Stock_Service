@@ -133,6 +133,14 @@ class Vetement:
 
         self.reduction = 1 # si reduction, par défault = 1
 
+        self.lstAllElement=[self.idVet, self.libelle,self.marque,self.quantite,self.prixHTVA,self.tauxTVA,self.taille,self.categorie,self.couleur,self.lstAssorti]
+    
+    def addVetAssort(self, vetm):
+        """ fonction qui ajoute un vetement à la lstAssorti sans redondance
+        """
+        if vetm not in self.lstAssorti:
+            self.lstAssorti.append(vetm)
+
     def __str__(self):
         """Utile pour afficher tous les attributs du Vetement. 
         par Exemple lors d'un messagebox.showinfo
@@ -149,6 +157,7 @@ class Vetement:
         :rtype: Decimal
         """
         return Decimal(self.prixHTVA * ((self.tauxTVA/100.0) + 1.0) * self.reduction).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+
 
 
 class Ensemble:
