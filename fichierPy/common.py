@@ -26,6 +26,7 @@ from datetime import datetime
 
 ###########Variables globales #############
 CouleurBlanc = "#FFFFFF"
+CouleurBleu ="#33b8ff"
 
 ##########Fin variables globales###########
 
@@ -135,6 +136,11 @@ class Vetement:
 
         self.lstAllElement=[self.idVet, self.libelle,self.marque,self.quantite,self.prixHTVA,self.tauxTVA,self.taille,self.categorie,self.couleur,self.lstAssorti]
     
+    def updateLstAllElement(self):
+        """ Effectue un update dynamique de lstAllElment
+        """
+        self.lstAllElement=[self.idVet, self.libelle,self.marque,self.quantite,self.prixHTVA,self.tauxTVA,self.taille,self.categorie,self.couleur,self.lstAssorti]
+
     def addVetAssort(self, vetm):
         """ fonction qui ajoute un vetement à la lstAssorti sans redondance
         """
@@ -216,6 +222,9 @@ class InOutStock:
         self.dateTime = datetime.now()
         self.vetement = vetm
         self.InOut = InOut #True = In False = Out
+    
+    def juTestStr(self):
+        return ("ID: %s\nDateTime : %s\nVetement : %s\nIn ou Out : %s" %(self.intNumInOutStock,self.dateTime,self.vetement,self.InOut))
 
 
 class LogInOut:

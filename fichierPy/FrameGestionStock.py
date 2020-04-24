@@ -9,11 +9,11 @@ Documentation Générale
 ## author : Rochez Justin
 
 ########Import##########
-from common import HistoriqueInOut,Stock,tableEmployee,Vetement,InOutStock,CouleurBlanc
+from common import HistoriqueInOut,Stock,tableEmployee,Vetement,InOutStock,CouleurBlanc,CouleurBleu
 
 
 #toAdd on common 
-from tkinter import Tk,Frame,LabelFrame,GROOVE,Label,Button,StringVar
+from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar
 from tkinter import messagebox, ttk
 
 
@@ -87,6 +87,7 @@ class FrmStock(Frame):
                 self.tree.column('#%s' %(i), minwidth=110,width=110)
             else:
                 self.tree.column('#%s' %(i), minwidth=60,width=60)  
+        #self.tree.tag_configure("pair", background = 'black')
         self.frmrecherche()
          
         self.tree.pack()
@@ -95,7 +96,7 @@ class FrmStock(Frame):
         self.frmButton.grid(row = 0, column = 0, ipadx = 30 , ipady = 23)
         Frame(self.frmButton,height = 30,bg = CouleurBlanc).pack()
         ttk.Button(self.frmButton, text = "Rechercher", command = self.frmrecherche, width = 15).pack()
-        ttk.Button(self.frmButton, text = "Ajouter", command = self.test,width = 15).pack()
+        ttk.Button(self.frmButton, text = "Ajouter", command = self.frmajout,width = 15).pack()
         ttk.Button(self.frmButton, text = "Modifier", command = self.frmmodif,width = 15).pack()
         ttk.Button(self.frmButton, text = "Supprimer", command = self.Supprimer,width = 15).pack()
         ttk.Button(self.frmButton, text = "exporter en Excel", command = self.test,width = 15).pack()
@@ -103,14 +104,14 @@ class FrmStock(Frame):
         #************Frame des bouton de Menu******
         self.frmMenu = Frame(self, bg = "#33b8ff", relief = GROOVE, border = 2)
         self.frmMenu.grid(row = 1, column = 0, ipadx = 5 , ipady = 13)
-        Frame(self.frmMenu,height = 30,bg = "#33b8ff").pack()
+        Frame(self.frmMenu,height = 30,bg = CouleurBleu).pack()
         Button(self.frmMenu,text = "Vente",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Gestion_Stock",command = self.test, bg = "#989898", relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Statistique",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Gestion_employé",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
         #************end bouton de menu************
         self.info = StringVar()
-        self.info.set("Dernière action :")
+        self.info.set("Aucune action effectuée")
         self.labInfo = Label(self.l,textvariable = self.info, bg = CouleurBlanc)
         self.labInfo.pack()
         self.l.grid(row = 0, rowspan =2, column = 1)
@@ -127,14 +128,116 @@ class FrmStock(Frame):
         self.tree.delete(*self.tree.get_children())
         for i,vetm in enumerate(self.parent.stock.lstVetement):
             self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+    
+    def changeFrame(self,frameToOpen):
+        """Fonction qui ferme toutes les Frames pour n'ouvrir que la FrameToOpen
+        """
+        self.frmAjout.pack_forget()
+        self.frmModif.pack_forget()
+        self.frmRecherche.pack_forget()
+        frameToOpen.pack(padx =11, pady = 1)
+
+    def frmajout(self, event = None):
+        """Creation de la Frame D'ajout
+        """
+        self.dctAjout = {}
+        self.entreeAj = {}
+        try:
+            self.changeFrame(self.frmAjout)
+            Label(self.frmAjout,text = "article à ajouter: ",bg =CouleurBlanc).grid(row= 0, column = 0)
+            Label(self.frmAjout,text= ("%s :" %("Prix d'achat")),bg =CouleurBlanc).grid(row = 5, column = 2, padx = 20, pady = 1)
+            for i,s in enumerate(self.key):
+                self.dctAjout[s]= StringVar()
+                try:
+                    if len(self.tree.focus()) != 0:
+                        self.dctAjout[s].set(self.parent.stock.lstVetement[int(self.tree.focus())].lstAllElement[i])
+                except :
+                    self.dctAjout[s].set('')  
+            self.dctAjout["Prix d'achat"] = StringVar()
+            if len(self.tree.focus()) != 0:
+                self.dctAjout["Prix d'achat"].set(self.parent.stock.lstVetement[int(self.tree.focus())].prixAchat)
+            
+            for Row,s in enumerate(self.dctAjout.keys()):
+                self.entreeAj[s]=ttk.Entry(self.frmAjout,textvariable = self.dctAjout[s] ,width = 23)
+                if s == "Quantité" or s == "PrixHTVA" or s =="Tva" or s == "Prix d'achat":
+                    self.entreeAj[s]= ttk.Spinbox(self.frmAjout ,textvariable = self.dctAjout[s],from_=0, to=999999,width = 21)
+                if Row <= 4 :
+                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row+1, column = 0, padx = 20, pady = 1)
+                    self.entreeAj[s].grid(row = Row+1, column = 1, padx = 20, pady = 1)
+                else:
+                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row-4, column = 2, padx = 20, pady = 1)
+                    self.entreeAj[s].grid(row = Row-4, column = 3, padx = 20, pady = 1)
+
+            ttk.Button(self.frmAjout, text ="Confirmer" , command = self.ajouter).grid(row = 0, rowspan = 6, column = 4)
+            ttk.Button(self.frmAjout, text ="In Stock" , command = self.InStock).grid(row = 3, rowspan = 9, column = 4)
+            self.tree.bind("<Button-1>", self.frmajout)
+            for w in self.entreeAj.values(): 
+                w.bind("<Return>", self.ajouter)
+            
+        except:
+            messagebox.showerror(title="Error", message="l'ajout à échoué!")
+
+    def ajouter(self,event = None):
+        try:
+           valeur = [v.get()for v in self.entreeAj.values()]
+           if int(valeur[0]) not in [int(v.idVet) for v in self.parent.stock.lstVetement]:
+                self.parent.stock + Vetement(valeur[0],valeur[1],valeur[2],valeur[8],valeur[7],valeur[4],valeur[5],valeur[9], valeur[6],valeur[3])
+                self.parent.Historique.In( self.parent.stock.lstVetement[-1])
+                messagebox.showinfo(title="Article ajouté", message="L'article %s a été ajouté avec succès" %(self.parent.stock.lstVetement[-1].idVet) )
+                self.info.set("Ajout de l'article %s au stock" %(self.parent.stock.lstVetement[-1].idVet))
+           else: 
+               messagebox.showinfo(title="en stock", message="Le numéro de vêtement que vous avez utilisé est déjà dans le stock. Pour modifier veuillez allez dans l'option Modifier")
+        except :
+            messagebox.showerror(title="Error", message="l'ajout à échoué!\nToutes les cases doivent être remplie")
+
+    def InStock(self):
+        """Fonction de modification de la quantité d'un article Vetement se trouvant déja dans le stock.
+        La fonction n'éffectue qu'un In dans le stock. Les fonctions Out Stock sont prévue pour la fenetre de vente.
+        """
+
+        def changeQuant(event = None):
+            """change la quantité de stock en effectuant un In, adapte aussi l'historique
+            """
+            try:
+                if int(quantite.get()) > 0:
+                    temp = self.parent.stock.lstVetement[int(self.tree.focus())].quantite
+                    self.info.set("Ajout de %s quantité(s) de l'article %s" %(int(quantite.get()),self.parent.stock.lstVetement[int(self.tree.focus())].idVet))
+                    messagebox.showinfo(title="Entrée en stock",message ="Ajout de %s quantité(s) pour:\n%s" \
+                        %(int(quantite.get()),self.parent.stock.lstVetement[int(self.tree.focus())]))
+                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(quantite.get())
+                    self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())])
+                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite = temp  + int(quantite.get())
+                    self.tree.bind("<Button-1>", self.frmajout)
+                    self.recherche()
+                    rootIn.destroy()
+                else:
+                    messagebox.showinfo(title= "Attention", message=" La quantité doit être plus grande que 0.")
+            except:
+                messagebox.showerror(title="Error", message="Une Erreur est survenue dans l'entrée en stock")   
+   
+        rootIn = Toplevel(self.parent)
+        quantite = StringVar()
+        if len(self.tree.focus()) != 0:
+            self.tree.unbind("<Button-1>")  
+            rootIn.title("TSS : Entrée en stock")
+            rootIn.minsize(300,220)
+            frameLabel = Frame(rootIn, bg= CouleurBlanc)
+            Label(frameLabel,text= self.parent.stock.lstVetement[int(self.tree.focus())], bg = CouleurBlanc).pack()
+            spin = ttk.Spinbox(frameLabel ,textvariable = quantite,from_=0, to=999999,width = 21)
+            spin.pack()
+            spin.bind("<Return>", changeQuant)
+            ttk.Button(frameLabel, text ="Confirmer" , command = changeQuant).pack()
+            ttk.Button(frameLabel, text ="quitter" , command = rootIn.destroy).pack()
+            frameLabel.pack()
+            rootIn.mainloop()
+        else:
+            messagebox.showwarning(title="Selectionner Article.", message="Vous devez selectionner un article!")
 
     def frmmodif(self, event = None):
         """Fonction de création de la Frame de modification
         """
         try:
-            self.frmRecherche.pack_forget()
-            #self.frmAjout.pack_forget()
-            self.frmModif.pack(padx = 1, pady = 1)
+            self.changeFrame(self.frmModif)
             self.tree.bind("<Button-1>", self.frmmodif)
             Label(self.frmModif,text = "article à modifier: ",bg =CouleurBlanc).grid(row= 0, column = 0)
             self.dctStvModif = {}
@@ -144,8 +247,8 @@ class FrmStock(Frame):
                     if len(self.tree.focus()) != 0:
                         self.dctStvModif[s].set(self.parent.stock.lstVetement[int(self.tree.focus())].lstAllElement[i])
                 except :
-                    self.dctStvModif[s].set('')      
-            
+                    self.dctStvModif[s].set('')  
+
             self.entree = {}
             lenColn =int(len(self.dctStvModif)/2)
             for Row,s in enumerate(self.dctStvModif.keys()):
@@ -197,7 +300,7 @@ class FrmStock(Frame):
             self.assortModif.config(values =[v.idVet for v in vetAAssortir.lstAssorti])
             self.tree.selection_set()
             self.frmmodif()
-            
+
 
         try:
             try:
@@ -218,45 +321,35 @@ class FrmStock(Frame):
 
     def Modifier (self, event= None):
         """Fonction de confirmation de modification d'un vetement. 
-        Si le EAN vetement existe déjà, la modification ne se fera que sur la quantité et sera prise en compte par l'Historique
+        Si l'idVet du vetement existe déjà, la modification se fera. 
+        Si les Quantités de l'article change, les modifications seront prises en compte dans l'historique
         """
         try:
-            if str(self.dctStvModif["Libéllé"].get()) == str(self.parent.stock.lstVetement[int(self.tree.focus())].libelle):
-                if messagebox.askyesno("Modification","Voulez vous modifier le vêtement\n%s" %(self.parent.stock.lstVetement[int(self.tree.focus())])):
-                    print(self.parent.stock.lstVetement[int(self.tree.focus())].lstAllElement)
-                    """
-                    if str(self.stockAffiche.lstVetement[int(self.tree.focus())].EAN) in [str(v.EAN) for v in self.stock.lstVetement]:
-                        #print('modifié')
-                        for v in self.stock.lstVetement:
-                            if self.stockAffiche.lstVetement[int(self.tree.focus())].EAN == v.EAN:
-                                v.EAN = self.entree["numArt"].get()
-                                v.strLibelle= self.entree["libArt"].get()
-                                v.strMarque= self.entree["marqueArt"].get()
-                                v.dblPrixHTVA = float(self.entree["prixArt"].get())
-                                v.Taille = self.entree["tailleArt"].get()
-                                v.strCategorie = self.entree["catArt"].get()
-                                v.strCouleur = self.entree["couleurArt"].get()
-                                if v.Quantite < int(self.entree["quantArt"].get()):
-                                    if (messagebox.askyesno("Modification","Voulez vous modifier la quantité. Cette manoeuvre est équivalente à une Transaction")):
-                                        dif =int(self.entree["quantArt"].get())-v.Quantite
-                                        v.Quantite = dif 
-                                        self.parent.Historique.In([v])
-                                        #print(self.parent.Historique.lstInOutStock[0].lstVetement[0].Quantite)
-                                        v.Quantite = int(self.entree["quantArt"].get())
-                                        #print(v.Quantite)
-                                elif v.Quantite > int(self.entree["quantArt"].get()):
-                                    if (messagebox.askyesno("Modification","Voulez vous modifier la quantité. Cette manoeuvre est équivalente à une Transaction")):
-                                        dif =v.Quantite - int(self.entree["quantArt"].get())
-                                        v.Quantite = dif 
-                                        self.parent.Historique.Out([v])
-                                        print(self.parent.Historique.lstInOutStock[0].lstVetement[0].Quantite)
-                                        v.Quantite = int(self.entree["quantArt"].get())
-                                        print(v.Quantite)
+            messageInfo = "Aucune modification effectuée"
+            if str(self.dctStvModif["Numéro d'article"].get()) == str(self.parent.stock.lstVetement[int(self.tree.focus())].idVet):
+                messagebox.showinfo(title="Attention !", message="Toute modification des quantités entrainera un flux de stock!")
+                if messagebox.askyesno(title="Modification", message="Voulez-vous modifier ?\n%s" %(self.parent.stock.lstVetement[int(self.tree.focus())])):
+                    if self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()) > 0:
+                        messageInfo = "Modification: sortie de stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
+                        self.parent.stock.lstVetement[int(self.tree.focus())].quantite -= int(self.dctStvModif["Quantité"].get())
+                        self.parent.Historique.Out(self.parent.stock.lstVetement[int(self.tree.focus())])
+                    elif self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()) < 0:
+                        messageInfo = "Modification: entrée en stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
+                        self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(self.dctStvModif["Quantité"].get())-self.parent.stock.lstVetement[int(self.tree.focus())].quantite
+                        self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())])
+                    try:
+                        self.parent.stock.lstVetement[int(self.tree.focus())]= Vetement(self.dctStvModif["Numéro d'article"].get(),self.dctStvModif["Libéllé"].get(),\
+                            self.dctStvModif["Marque"].get(),self.dctStvModif["Couleur"].get(),self.dctStvModif["Catégorie"].get(),self.dctStvModif["PrixHTVA"].get(),self.dctStvModif["Tva"].get(),\
+                                self.parent.stock.lstVetement[int(self.tree.focus())].prixAchat,self.dctStvModif["Taille"].get(),self.dctStvModif["Quantité"].get(),\
+                                    self.parent.stock.lstVetement[int(self.tree.focus())].lstAssorti)
+                        messageInfo = "Modification de l'article %s effectuée avec succès" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
+                    except:
+                        messagebox.showerror(title="Error", message="Erreur dans la modification de l'article")
+                    self.info.set(messageInfo)
+                    for e in self.dctStvModif.values():
+                        e.set('')
                     self.recherche()
-                    """
-            else :
-                self.frmmodif()
-                self.Modifier()
+                
         except :
             messagebox.showerror(title="Error", message="Vous devez selectionner un vetement")
     
@@ -266,8 +359,11 @@ class FrmStock(Frame):
         """
         try:
             if (messagebox.askyesno(title="Confirmer Suppression ?",message="%s" %(self.parent.stock.lstVetement[int(self.tree.focus())]))):
+                self.info.set("Suppression de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet))
                 del(self.parent.stock.lstVetement[int(self.tree.focus())])
-                self.updateStock()      
+                self.recherche()
+            else:
+                self.info.set("Aucune Suppression effectuée")      
         except:
             messagebox.showerror(title="Error", message="Erreur dans la suppression de l'article!")
 
@@ -306,9 +402,7 @@ class FrmStock(Frame):
             """Fonction de création de la Frame de Recherche
             """
             self.tree.unbind("<Button-1>")
-            #self.frmAjout.pack_forget()
-            self.frmModif.pack_forget()
-            self.frmRecherche.pack()
+            self.changeFrame(self.frmRecherche)
             Label(self.frmRecherche, text = "rechercher par:" ,bg =CouleurBlanc).grid(row = 0, column = 0, padx = 20, pady = 1)          
             for i,k in enumerate(self.key):
                 if k != "PrixHTVA":
@@ -348,10 +442,11 @@ if __name__ == "__main__":
     #Data test 
     Color = ["Rouge","Vert","Bleu","Gris","Arc-En-Ciel","Noir","Rose"]
     Cat =["Sport","Femme","Homme","Enfant","intello","baraki"]
+    marque = ["Nike","Fila","DolceGabana","Audi","samsung","Sony","decomode","LaMarque"]
     tva =[21.0,6.0,12.5]
     size = ["S","XS","M","L","XL","XXL","XXL"]
     for i in range(145):
-        _stock + Vetement(5414+i,"Lib%s" %(i),"Marque %s" %(i),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
+        _stock + Vetement(5414+i,"Lib%s" %(i),choice(marque),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
         
     
     
