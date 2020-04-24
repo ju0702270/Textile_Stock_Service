@@ -28,6 +28,11 @@ from datetime import datetime
 CouleurBlanc = "#FFFFFF"
 CouleurBleu ="#33b8ff"
 
+widthSpinBox = 21
+widthEntry = 23
+widthLabel = 20
+widthCombo = 20
+
 ##########Fin variables globales###########
 
 class baseRoot(Tk):

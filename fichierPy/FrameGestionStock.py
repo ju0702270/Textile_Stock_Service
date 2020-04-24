@@ -9,7 +9,7 @@ Documentation Générale
 ## author : Rochez Justin
 
 ########Import##########
-from common import HistoriqueInOut,Stock,tableEmployee,Vetement,InOutStock,CouleurBlanc,CouleurBleu
+from common import HistoriqueInOut,Stock,tableEmployee,Vetement,InOutStock,CouleurBlanc,CouleurBleu, widthSpinBox ,widthEntry, widthLabel, widthCombo
 
 
 #toAdd on common 
@@ -18,9 +18,7 @@ from tkinter import messagebox, ttk
 
 
 #importTest
-from random import *
-
-
+from random import choice,randrange
 ########Global########## 
 
 
@@ -72,7 +70,7 @@ class FrmStock(Frame):
         
         self.l = LabelFrame(self, text="Gestion_Stock", padx=10, pady=5)
         self.FrFond = Frame(self.l,relief = GROOVE, border = 2,  bg =CouleurBlanc)
-        self.FrFond.pack (ipadx = 73, ipady =5)
+        self.FrFond.pack (ipadx = 42, ipady =5)
 
         self.frmRecherche = Frame(self.FrFond, bg =CouleurBlanc)
         self.frmAjout = Frame(self.FrFond, bg =CouleurBlanc)
@@ -84,12 +82,11 @@ class FrmStock(Frame):
         for i,k in enumerate(self.key):
             self.tree.heading('#%s' %(i),text = k)
             if k[0] not in ["T","P","Q"]:
-                self.tree.column('#%s' %(i), minwidth=110,width=110)
+                self.tree.column('#%s' %(i), minwidth=130,width=130)
             else:
-                self.tree.column('#%s' %(i), minwidth=60,width=60)  
-        #self.tree.tag_configure("pair", background = 'black')
+                self.tree.column('#%s' %(i), minwidth=63,width=63)  
+       
         self.frmrecherche()
-         
         self.tree.pack()
         self.updateStock()
         self.frmButton = Frame(self, bg = CouleurBlanc, relief = GROOVE, border = 2)
@@ -112,7 +109,7 @@ class FrmStock(Frame):
         #************end bouton de menu************
         self.info = StringVar()
         self.info.set("Aucune action effectuée")
-        self.labInfo = Label(self.l,textvariable = self.info, bg = CouleurBlanc)
+        self.labInfo = Label(self.l,textvariable = self.info, bg = CouleurBlanc,width = 128,  anchor="w")
         self.labInfo.pack()
         self.l.grid(row = 0, rowspan =2, column = 1)
       
@@ -127,15 +124,20 @@ class FrmStock(Frame):
         """
         self.tree.delete(*self.tree.get_children())
         for i,vetm in enumerate(self.parent.stock.lstVetement):
-            self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
-    
+            if int(i/2) == i/2:
+                self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur]\
+                    ,tags = 'pair')   
+            else:
+                self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+
+
     def changeFrame(self,frameToOpen):
         """Fonction qui ferme toutes les Frames pour n'ouvrir que la FrameToOpen
         """
         self.frmAjout.pack_forget()
         self.frmModif.pack_forget()
         self.frmRecherche.pack_forget()
-        frameToOpen.pack(padx =11, pady = 1)
+        frameToOpen.pack()
 
     def frmajout(self, event = None):
         """Creation de la Frame D'ajout
@@ -144,8 +146,8 @@ class FrmStock(Frame):
         self.entreeAj = {}
         try:
             self.changeFrame(self.frmAjout)
-            Label(self.frmAjout,text = "article à ajouter: ",bg =CouleurBlanc).grid(row= 0, column = 0)
-            Label(self.frmAjout,text= ("%s :" %("Prix d'achat")),bg =CouleurBlanc).grid(row = 5, column = 2, padx = 20, pady = 1)
+            Label(self.frmAjout,text = "article à ajouter: ",bg =CouleurBlanc, width =widthLabel, anchor="w").grid(row= 0, column = 0)
+            Label(self.frmAjout,text= ("%s :" %("Prix achat")),bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 5, column = 2, padx = 20, pady = 1)
             for i,s in enumerate(self.key):
                 self.dctAjout[s]= StringVar()
                 try:
@@ -153,19 +155,19 @@ class FrmStock(Frame):
                         self.dctAjout[s].set(self.parent.stock.lstVetement[int(self.tree.focus())].lstAllElement[i])
                 except :
                     self.dctAjout[s].set('')  
-            self.dctAjout["Prix d'achat"] = StringVar()
+            self.dctAjout["Prix achat"] = StringVar()
             if len(self.tree.focus()) != 0:
                 self.dctAjout["Prix d'achat"].set(self.parent.stock.lstVetement[int(self.tree.focus())].prixAchat)
             
             for Row,s in enumerate(self.dctAjout.keys()):
-                self.entreeAj[s]=ttk.Entry(self.frmAjout,textvariable = self.dctAjout[s] ,width = 23)
-                if s == "Quantité" or s == "PrixHTVA" or s =="Tva" or s == "Prix d'achat":
-                    self.entreeAj[s]= ttk.Spinbox(self.frmAjout ,textvariable = self.dctAjout[s],from_=0, to=999999,width = 21)
+                self.entreeAj[s]=ttk.Entry(self.frmAjout,textvariable = self.dctAjout[s] ,width = widthEntry)
+                if s == "Quantité" or s == "PrixHTVA" or s =="Tva" or s == "Prix achat":
+                    self.entreeAj[s]= ttk.Spinbox(self.frmAjout ,textvariable = self.dctAjout[s],from_=0, to=999999,width = widthSpinBox)
                 if Row <= 4 :
-                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row+1, column = 0, padx = 20, pady = 1)
+                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = Row+1, column = 0, padx = 20, pady = 1)
                     self.entreeAj[s].grid(row = Row+1, column = 1, padx = 20, pady = 1)
                 else:
-                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row-4, column = 2, padx = 20, pady = 1)
+                    Label(self.frmAjout, text = ("%s :" %(s)),bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = Row-4, column = 2, padx = 20, pady = 1)
                     self.entreeAj[s].grid(row = Row-4, column = 3, padx = 20, pady = 1)
 
             ttk.Button(self.frmAjout, text ="Confirmer" , command = self.ajouter).grid(row = 0, rowspan = 6, column = 4)
@@ -222,8 +224,8 @@ class FrmStock(Frame):
             rootIn.title("TSS : Entrée en stock")
             rootIn.minsize(300,220)
             frameLabel = Frame(rootIn, bg= CouleurBlanc)
-            Label(frameLabel,text= self.parent.stock.lstVetement[int(self.tree.focus())], bg = CouleurBlanc).pack()
-            spin = ttk.Spinbox(frameLabel ,textvariable = quantite,from_=0, to=999999,width = 21)
+            Label(frameLabel,text= self.parent.stock.lstVetement[int(self.tree.focus())], bg = CouleurBlanc,width =widthLabel).pack()
+            spin = ttk.Spinbox(frameLabel ,textvariable = quantite,from_=0, to=999999,width = widthSpinBox)
             spin.pack()
             spin.bind("<Return>", changeQuant)
             ttk.Button(frameLabel, text ="Confirmer" , command = changeQuant).pack()
@@ -239,7 +241,7 @@ class FrmStock(Frame):
         try:
             self.changeFrame(self.frmModif)
             self.tree.bind("<Button-1>", self.frmmodif)
-            Label(self.frmModif,text = "article à modifier: ",bg =CouleurBlanc).grid(row= 0, column = 0)
+            Label(self.frmModif,text = "article à modifier: ",bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row= 0, column = 0)
             self.dctStvModif = {}
             for i,s in enumerate(self.key):
                 self.dctStvModif[s]= StringVar()
@@ -252,20 +254,20 @@ class FrmStock(Frame):
             self.entree = {}
             lenColn =int(len(self.dctStvModif)/2)
             for Row,s in enumerate(self.dctStvModif.keys()):
-                self.entree[s]=ttk.Entry(self.frmModif, textvariable = self.dctStvModif[s], width = 23)
+                self.entree[s]=ttk.Entry(self.frmModif, textvariable = self.dctStvModif[s], width = widthEntry)
                 if s == "Quantité" or s == "PrixHTVA" or s =="Tva":
-                    self.entree[s]= ttk.Spinbox(self.frmModif ,textvariable = self.dctStvModif[s],from_=0, to=999999,width = 21)
+                    self.entree[s]= ttk.Spinbox(self.frmModif ,textvariable = self.dctStvModif[s],from_=0, to=999999,width = widthSpinBox)
                 if Row +1 <= lenColn :
-                    Label(self.frmModif, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row+1, column = 0, padx = 20, pady = 1)
+                    Label(self.frmModif, text = ("%s :" %(s)),bg =CouleurBlanc, width =widthLabel, anchor="w").grid(row = Row+1, column = 0, padx = 20, pady = 1)
                     self.entree[s].grid(row = Row+1, column = 1, padx = 20, pady = 1)
                 else:
-                    Label(self.frmModif, text = ("%s :" %(s)),bg =CouleurBlanc).grid(row = Row-lenColn+1, column = 2, padx = 20, pady = 1)
+                    Label(self.frmModif, text = ("%s :" %(s)),bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = Row-lenColn+1, column = 2, padx = 20, pady = 1)
                     self.entree[s].grid(row = Row-lenColn+1, column = 3, padx = 20, pady = 1)
-            Label(self.frmModif, text = ("%s :" %("Assorti avec")),bg =CouleurBlanc).grid(row = 5, column = 0, padx = 20, pady = 1)
+            Label(self.frmModif, text = ("%s :" %("Assorti avec")),bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 5, column = 0, padx = 20, pady = 1)
             if len(self.tree.focus()) == 0:
-                self.assortModif = ttk.Combobox(self.frmModif,width = 20)
+                self.assortModif = ttk.Combobox(self.frmModif,width = widthCombo)
             else :
-                self.assortModif = ttk.Combobox(self.frmModif,width = 20,values = [v.idVet for v in self.parent.stock.lstVetement[int(self.tree.focus())].lstAssorti])
+                self.assortModif = ttk.Combobox(self.frmModif,width = widthCombo,values = [v.idVet for v in self.parent.stock.lstVetement[int(self.tree.focus())].lstAssorti])
             self.assortModif.grid(row = 5, column = 1, padx = 20, pady = 1)
             ttk.Button(self.frmModif, text ="Confirmer" , command = self.Modifier).grid(row = 0, rowspan = 6, column = 4)
             ttk.Button(self.frmModif, text ="Réassortir" , command = self.reassortir).grid(row = 3, rowspan = 9, column = 4)
@@ -394,6 +396,7 @@ class FrmStock(Frame):
                             or (len(entryRech[-1].get())!=0 and int(entryRech[-1].get()) > int(valeurComparative[-1])):
                             self.tree.delete(i) 
                             break  
+            self.info.set("recherche effectuée avec succès")
         except :
             messagebox.showerror(title="Error", message="Erreur d'encodage!") 
             self.updateStock() 
@@ -403,26 +406,26 @@ class FrmStock(Frame):
             """
             self.tree.unbind("<Button-1>")
             self.changeFrame(self.frmRecherche)
-            Label(self.frmRecherche, text = "rechercher par:" ,bg =CouleurBlanc).grid(row = 0, column = 0, padx = 20, pady = 1)          
+            Label(self.frmRecherche, text = "rechercher par:" ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 0, column = 0)          
             for i,k in enumerate(self.key):
                 if k != "PrixHTVA":
                     if i < int(len(self.key)/2):
-                        Label(self.frmRecherche, text = "%s :" %(k) ,bg =CouleurBlanc).grid(row = i+1, column = 0, padx = 20, pady = 1)
+                        Label(self.frmRecherche, text = "%s :" %(k) ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = i+1, column = 0, padx = 20, pady = 1)
                     else:
-                        Label(self.frmRecherche, text = "%s :" %(k) ,bg =CouleurBlanc).grid(row = i-int(len(self.key)/2), column = 2, padx = 20, pady = 1)
+                        Label(self.frmRecherche, text = "%s :" %(k) ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = i-int(len(self.key)/2), column = 2, padx = 20, pady = 1)
                 else:
-                    Label(self.frmRecherche, text = "PrixMin :" ,bg =CouleurBlanc).grid(row = 5, column = 0, padx = 20, pady = 1)
-                    Label(self.frmRecherche, text = "PrixMax :" ,bg =CouleurBlanc).grid(row = 5, column = 2, padx = 20, pady = 1)
-                    self.minPrixfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = 21)
-                    self.maxPrixfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = 21)  
-            self.idVetfrRech =ttk.Combobox(self.frmRecherche,width = 20,values = [vetm.idVet for vetm in self.parent.stock.lstVetement])     
-            self.tvafrRech =ttk.Combobox(self.frmRecherche,width = 20,values = sorted(self.parent.stock.lstNonRep()["tva"]))
-            self.libfrRech =ttk.Combobox(self.frmRecherche,width = 20,values = [vetm.libelle for vetm in self.parent.stock.lstVetement])
-            self.quantfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = 21)
-            self.MarquefrRech =ttk.Combobox(self.frmRecherche,width = 20, values = self.parent.stock.lstNonRep()["marque"])
-            self.taillefrRech =ttk.Combobox(self.frmRecherche,width = 20,values = self.parent.stock.lstNonRep()["taille"])
-            self.catfrRech =ttk.Combobox(self.frmRecherche,width = 20,values = self.parent.stock.lstNonRep()["cat"])
-            self.couleurfrRech =ttk.Combobox(self.frmRecherche,width = 20,values = self.parent.stock.lstNonRep()["color"])
+                    Label(self.frmRecherche, text = "PrixMin :" ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 5, column = 0, padx = 20, pady = 1)
+                    Label(self.frmRecherche, text = "PrixMax :" ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 5, column = 2, padx = 20, pady = 1)
+                    self.minPrixfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = widthSpinBox)
+                    self.maxPrixfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = widthSpinBox)  
+            self.idVetfrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = [vetm.idVet for vetm in self.parent.stock.lstVetement])     
+            self.tvafrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = sorted(self.parent.stock.lstNonRep()["tva"]))
+            self.libfrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = [vetm.libelle for vetm in self.parent.stock.lstVetement])
+            self.quantfrRech =ttk.Spinbox(self.frmRecherche,from_=0, to=999999,width = widthSpinBox)
+            self.MarquefrRech =ttk.Combobox(self.frmRecherche,width = widthCombo, values = self.parent.stock.lstNonRep()["marque"])
+            self.taillefrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = self.parent.stock.lstNonRep()["taille"])
+            self.catfrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = self.parent.stock.lstNonRep()["cat"])
+            self.couleurfrRech =ttk.Combobox(self.frmRecherche,width = widthCombo,values = self.parent.stock.lstNonRep()["color"])
             lstCombo = [self.idVetfrRech,self.libfrRech,self.MarquefrRech,self.quantfrRech,self.minPrixfrRech, self.tvafrRech,self.taillefrRech,self.catfrRech,\
                 self.couleurfrRech,self.maxPrixfrRech]
             for i,w in enumerate(lstCombo):
