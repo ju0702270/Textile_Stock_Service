@@ -9,7 +9,7 @@ Documentation Générale
 ## author : Rochez Justin
 
 ########Import##########
-from common import HistoriqueInOut,Stock,tableEmployee,Vetement,InOutStock,CouleurBlanc,CouleurBleu, widthSpinBox ,widthEntry, widthLabel, widthCombo
+from common import CouleurBlanc,CouleurBleu, widthSpinBox ,widthEntry, widthLabel, widthCombo
 
 
 #toAdd on common 
@@ -21,38 +21,7 @@ from tkinter import messagebox, ttk
 from random import choice,randrange
 ########Global########## 
 
-
 ########Class###########
-class baseRoot(Tk):
-    """Class d'initiation à la root Tkinter, C'est cet objet qui supporte tout le programme.
-    Chaque Frame que vous faites doit être integrée dedans. 
-    
-    :param Tk: Tkinter.Tk
-    :type Tk: Tk()
-    :param stockVetement: c'est un objet stock contenant des vetements 
-    :type stockVetement: Stock()
-    :param Historique: c'est l'historique de toute les transactions
-    :type Historique: HistoriqueInOut()
-    """
-    def __init__(self,stockVetement, Historique, tableEmp):
-        Tk.__init__(self)
-        self.title("TSS")
-        self.minsize(1050,400)
-        #self.iconbitmap("""monIconeAChoisir.ico""")
-
-        ##### ici c'est uyn peu la base de données du programme avec 3 grosses tables
-        self.stock = stockVetement
-        self.Historique = Historique
-        self.employe = tableEmp 
-        
-        self.frm_Login = "" # Frame du Login (Emilien)
-
-        self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
-        self.frm_Stock.pack()
-
-        self.frm_Stat = "" # Frame de la gestion des statistiques (Nassim)
-        self.frm_Vente = "" # Frame de la Gestion des ventes (???)
-        self.frm_Employé = "" # Frame de la gestion des Employe (???)
 
 class FrmStock(Frame):
     """C'est la Frame qui contient la Gestion du stock.
@@ -438,26 +407,4 @@ class FrmStock(Frame):
             
 
 if __name__ == "__main__":
-    _stock = Stock()
-    _Historique = HistoriqueInOut()
-    _emp = tableEmployee()
-
-    #Data test 
-    Color = ["Rouge","Vert","Bleu","Gris","Arc-En-Ciel","Noir","Rose"]
-    Cat =["Sport","Femme","Homme","Enfant","intello","baraki"]
-    marque = ["Nike","Fila","DolceGabana","Audi","samsung","Sony","decomode","LaMarque"]
-    tva =[21.0,6.0,12.5]
-    size = ["S","XS","M","L","XL","XXL","XXL"]
-    for i in range(145):
-        _stock + Vetement(5414+i,"Lib%s" %(i),choice(marque),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
-        
-    
-    
-    for i,v in enumerate(_stock.lstVetement[0:2]):
-        v.lstAssorti.append(_stock.lstVetement[i])
-       
-    
-
-    mainFen = baseRoot(_stock, _Historique, _emp)
-
-    mainFen.mainloop() 
+    pass

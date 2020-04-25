@@ -18,12 +18,13 @@ Consigne:
 
 """
 ##########Import de library ##############
-from tkinter import ttk,messagebox,Tk
+from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar
+from tkinter import messagebox, ttk
 from decimal import Decimal,ROUND_HALF_UP
 from datetime import datetime
-
-
-
+from FrameGestionStock import FrmStock
+#importTest
+from random import choice,randrange
 ###########Variables globales #############
 CouleurBlanc = "#FFFFFF"
 CouleurBleu ="#33b8ff"
@@ -58,10 +59,14 @@ class baseRoot(Tk):
         self.employe = tableEmp 
         
         self.frm_Login = "" # Frame du Login (Emilien)
-        self.frm_Stock = "" #Frame de la gestion de stock ( Justin )
+
+        self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
+        self.frm_Stock.pack()
+
         self.frm_Stat = "" # Frame de la gestion des statistiques (Nassim)
         self.frm_Vente = "" # Frame de la Gestion des ventes (???)
         self.frm_Employé = "" # Frame de la gestion des Employe (???)
+
 
 
 class Stock:
@@ -264,4 +269,26 @@ class Admin(Employe):
 
 
 if __name__ == "__main__":
-    pass
+    _stock = Stock()
+    _Historique = HistoriqueInOut()
+    _emp = tableEmployee()
+
+    #Data test  remlisage du stock
+    Color = ["Rouge","Vert","Bleu","Gris","Arc-En-Ciel","Noir","Rose"]
+    Cat =["Sport","Femme","Homme","Enfant","intello","baraki"]
+    marque = ["Nike","Fila","DolceGabana","Audi","samsung","Sony","decomode","LaMarque"]
+    tva =[21.0,6.0,12.5]
+    size = ["S","XS","M","L","XL","XXL","XXL"]
+    for i in range(145):
+        _stock + Vetement(5414+i,"Lib%s" %(i),choice(marque),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
+        
+    
+    
+    for i,v in enumerate(_stock.lstVetement[0:2]):
+        v.lstAssorti.append(_stock.lstVetement[i])
+       
+    
+
+    mainFen = baseRoot(_stock, _Historique, _emp)
+
+    mainFen.mainloop() 
