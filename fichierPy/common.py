@@ -1,30 +1,29 @@
 # -*- coding: utf-8 -*-
 ## author : Rochez Justin,Dif Nassim, Becquet Emilien
 """
-Commom
+Common
 --------------------------
 Document avec les différentes Class commune
 Consigne: 
 -Ne rien supprimer sans l'accord des 2 autres.  au pire on mets en commentaire
 -Toutes modifications doit être vraiment bien testée. (ex: on améliore des lignes de code)
 -Ajouter est permis et encoragé. Attention à ne pas creer des fonctions ou procédure déja créée. 
-
 -Votre Code doit être commenté correctement. 
 -2 espaces entre les classe et 1 espace entre les fonctions et procedure. 
 -Toutes les library se trouve en haut dans Import de library
 -Toutes les variables globales dans Variables Global (on en utilise le moins possible)
-
 -Ne dépassez pas les 170 caractères sur une ligne (pour rester lisible)
-
 """
 ##########Import de library ##############
-from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar
-from tkinter import messagebox, ttk
+from Frame_Login import User,FrmAcceuil
+from tkinter import ttk,messagebox,Tk,X
 from decimal import Decimal,ROUND_HALF_UP
 from datetime import datetime
-from FrameGestionStock import FrmStock
+
+
 #importTest
 from random import choice,randrange
+
 ###########Variables globales #############
 CouleurBlanc = "#FFFFFF"
 CouleurBleu ="#33b8ff"
@@ -58,15 +57,12 @@ class baseRoot(Tk):
         self.Historique = Historique
         self.employe = tableEmp 
         
-        self.frm_Login = "" # Frame du Login (Emilien)
-
-        self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
-        self.frm_Stock.pack()
-
+        self.frm_Login = FrmAcceuil(self) 
+        self.frm_Login.pack(fill=X, expand=1)# Frame du Login (Emilien)
+        self.frm_Stock = "" #Frame de la gestion de stock ( Justin )
         self.frm_Stat = "" # Frame de la gestion des statistiques (Nassim)
         self.frm_Vente = "" # Frame de la Gestion des ventes (???)
         self.frm_Employé = "" # Frame de la gestion des Employe (???)
-
 
 
 class Stock:
@@ -273,7 +269,7 @@ if __name__ == "__main__":
     _Historique = HistoriqueInOut()
     _emp = tableEmployee()
 
-    #Data test  remlisage du stock
+    #Data test 
     Color = ["Rouge","Vert","Bleu","Gris","Arc-En-Ciel","Noir","Rose"]
     Cat =["Sport","Femme","Homme","Enfant","intello","baraki"]
     marque = ["Nike","Fila","DolceGabana","Audi","samsung","Sony","decomode","LaMarque"]
