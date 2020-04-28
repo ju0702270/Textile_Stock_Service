@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 ## author : Rochez Justin,Dif Nassim, Becquet Emilien
 """
@@ -15,23 +16,19 @@ Consigne:
 -Ne dépassez pas les 170 caractères sur une ligne (pour rester lisible)
 """
 ##########Import de library ##############
-from Frame_Login import User,FrmAcceuil
-from tkinter import ttk,messagebox,Tk,X
-from decimal import Decimal,ROUND_HALF_UP
+from tkinter import ttk,messagebox,Tk,X,BOTH,Y
+from decimal import Decimal ,ROUND_HALF_UP
 from datetime import datetime
+from framelogin import User,FrmAcceuil
+from framegestionstock import FrmStock
+from pathlib import Path
 
 
 #importTest
 from random import choice,randrange
 
 ###########Variables globales #############
-CouleurBlanc = "#FFFFFF"
-CouleurBleu ="#33b8ff"
-
-widthSpinBox = 21
-widthEntry = 23
-widthLabel = 20
-widthCombo = 20
+directory = Path(__file__).parent
 
 ##########Fin variables globales###########
 
@@ -50,7 +47,7 @@ class baseRoot(Tk):
         Tk.__init__(self)
         self.title("TSS")
         self.minsize(1050,400)
-        #self.iconbitmap("""monIconeAChoisir.ico""")
+        self.iconbitmap("{}\\TSS_logo-ConvertImage.ico".format(directory))
 
         ##### ici c'est uyn peu la base de données du programme avec 3 grosses tables
         self.stock = stockVetement
@@ -59,7 +56,10 @@ class baseRoot(Tk):
         
         self.frm_Login = FrmAcceuil(self) 
         self.frm_Login.pack(fill=X, expand=1)# Frame du Login (Emilien)
-        self.frm_Stock = "" #Frame de la gestion de stock ( Justin )
+
+        self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
+        #self.frm_Stock.pack(fill=Y, expand=1) 
+
         self.frm_Stat = "" # Frame de la gestion des statistiques (Nassim)
         self.frm_Vente = "" # Frame de la Gestion des ventes (???)
         self.frm_Employé = "" # Frame de la gestion des Employe (???)

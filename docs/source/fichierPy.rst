@@ -1,21 +1,13 @@
 fichierPy package
 =================
 
-Submodules
-----------
+.. toctree::
+   :maxdepth: 5
 
-fichierPy.FrameGestionStock module
-----------------------------------
+fichierPy.framelogin module
+---------------------------
 
-.. automodule:: fichierPy.FrameGestionStock
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-fichierPy.Frame\_Login module
------------------------------
-
-.. automodule:: fichierPy.Frame_Login
+.. automodule:: fichierPy.framelogin
    :members:
    :undoc-members:
    :show-inheritance:
@@ -27,6 +19,15 @@ fichierPy.common module
    :members:
    :undoc-members:
    :show-inheritance:
+
+fichierPy.framegestionstock module
+----------------------------------
+
+.. automodule:: fichierPy.framegestionstock
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 fichierPy.main module
 ---------------------
