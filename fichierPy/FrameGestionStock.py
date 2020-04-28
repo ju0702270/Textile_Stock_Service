@@ -9,6 +9,8 @@ Documentation
 ########Import##########
 from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar
 from tkinter import messagebox, ttk
+from classUtil import Vetement
+
 
 ########Global########## 
 CouleurBlanc = "#FFFFFF"
@@ -28,8 +30,6 @@ class FrmStock(Frame):
         """
         :param Frame: Tkiner.Frame
         :type Frame:Frame()
-        :param stockVetement: c'est un objet stock contenant des vetements 
-        :type stockVetement: Stock()
         :params parent: C'est la fenetre parent Dans notre cas ici, nous utilisons le plus souvent baseRoot
         :type parent: baseRoot()
         """
@@ -70,7 +70,7 @@ class FrmStock(Frame):
         self.frmMenu = Frame(self, bg = "#33b8ff", relief = GROOVE, border = 2)
         self.frmMenu.grid(row = 1, column = 0, ipadx = 5 , ipady = 13)
         Frame(self.frmMenu,height = 30,bg = CouleurBleu).pack()
-        Button(self.frmMenu,text = "Vente",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
+        Button(self.frmMenu,text = "Vente",command = self.openVente, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Gestion_Stock",command = self.test, bg = "#989898", relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Statistique",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
         Button(self.frmMenu,text = "Gestion_employé",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
@@ -85,6 +85,10 @@ class FrmStock(Frame):
     def test(self,event= None):
         messagebox.showinfo("TSS", "application en construction")
         #print(self.tree.focus())
+    
+    def openVente(self):
+        self.pack_forget()
+        self.parent.frm_Vente.pack()
 
     def updateStock(self):
         """
@@ -149,13 +153,13 @@ class FrmStock(Frame):
 
     def ajouter(self,event = None):
         try:
-           valeur = [v.get()for v in self.entreeAj.values()]
-           if int(valeur[0]) not in [int(v.idVet) for v in self.parent.stock.lstVetement]:
+            valeur = [v.get()for v in self.entreeAj.values()]
+            if int(valeur[0]) not in [int(v.idVet) for v in self.parent.stock.lstVetement]:
                 self.parent.stock + Vetement(valeur[0],valeur[1],valeur[2],valeur[8],valeur[7],valeur[4],valeur[5],valeur[9], valeur[6],valeur[3])
                 self.parent.Historique.In( self.parent.stock.lstVetement[-1])
                 messagebox.showinfo(title="Article ajouté", message="L'article %s a été ajouté avec succès" %(self.parent.stock.lstVetement[-1].idVet) )
                 self.info.set("Ajout de l'article %s au stock" %(self.parent.stock.lstVetement[-1].idVet))
-           else: 
+            else: 
                messagebox.showinfo(title="en stock", message="Le numéro de vêtement que vous avez utilisé est déjà dans le stock. Pour modifier veuillez allez dans l'option Modifier")
         except :
             messagebox.showerror(title="Error", message="l'ajout à échoué!\nToutes les cases doivent être remplie")
@@ -303,6 +307,7 @@ class FrmStock(Frame):
                         messageInfo = "Modification: sortie de stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
                         self.parent.stock.lstVetement[int(self.tree.focus())].quantite -= int(self.dctStvModif["Quantité"].get())
                         self.parent.Historique.Out(self.parent.stock.lstVetement[int(self.tree.focus())])
+                        
                     elif self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()) < 0:
                         messageInfo = "Modification: entrée en stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
                         self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(self.dctStvModif["Quantité"].get())-self.parent.stock.lstVetement[int(self.tree.focus())].quantite
