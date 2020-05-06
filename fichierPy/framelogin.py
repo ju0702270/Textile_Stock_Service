@@ -123,6 +123,7 @@ class FrmAcceuil(Frame):
             self.newUser=[self.name, self.username, self.pw1]
             return self.user.append(self.newUser)
 
-    
+if __name__ == "__main__":
+    pass   
     
 

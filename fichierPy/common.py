@@ -4,6 +4,7 @@
 Common
 --------------------------
 Document avec les différentes Class commune
+Il représente la base du programme.
 Consigne: 
 -Ne rien supprimer sans l'accord des 2 autres.  au pire on mets en commentaire
 -Toutes modifications doit être vraiment bien testée. (ex: on améliore des lignes de code)
@@ -15,64 +16,14 @@ Consigne:
 -Ne dépassez pas les 170 caractères sur une ligne (pour rester lisible)
 """
 ##########Import de library ##############
-from tkinter import ttk,messagebox,Tk,X,BOTH,Y
 from datetime import datetime
-from classUtil import Vetement
-from framelogin import User,FrmAcceuil
-from framegestionstock import FrmStock
-from framevente import FrmVente
-from pathlib import Path
-
-
-#importTest
-from random import choice,randrange
-
+from decimal import Decimal ,ROUND_HALF_UP
+import copy
 ###########Variables globales #############
-directory = Path(__file__).parent
+
 
 ##########Fin variables globales###########
 
-class baseRoot(Tk):
-    """Class d'initiation à la root Tkinter, C'est cet objet qui supporte tout le programme.
-    Chaque Frame que vous faites doit être integrée dedans. 
-    
-    :param Tk: Tkinter.Tk
-    :type Tk: Tk()
-    :param stockVetement: c'est un objet stock contenant des vetements 
-    :type stockVetement: Stock()
-    :param Historique: c'est l'historique de toute les transactions
-    :type Historique: HistoriqueInOut()
-    """
-    def __init__(self,stockVetement, Historique, tableEmp):
-        Tk.__init__(self)
-        self.title("TSS")
-        self.minsize(1050,400)
-        self.iconbitmap("{}\\TSS_logo-ConvertImage.ico".format(directory))
-
-        ##### ici c'est uyn peu la base de données du programme avec 3 grosses tables
-        self.stock = stockVetement
-        self.Historique = Historique
-        self.employe = tableEmp 
-        
-        self.frm_Login = FrmAcceuil(self) 
-        #self.frm_Login.pack(fill=X, expand=1)# Frame du Login (Emilien)
-
-        self.frm_Vente = FrmVente(self)# Frame de la Gestion des ventes (???)
-        self.frm_Vente.pack()
-        self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
-        #self.frm_Stock.pack(fill=Y, expand=1) 
-
-        self.frm_Stat = "" # Frame de la gestion des statistiques (Nassim)
-        
-        
-        
-         
-        self.frm_Employé = "" # Frame de la gestion des Employe (???)
-    
-    def switchFrame(self,FrmToSwitch):
-        self.frm_Vente.pack_forget()
-        self.frm_Stock.pack_forget()
-        FrmToSwitch.pack()
 
 
 class Stock:
@@ -83,11 +34,12 @@ class Stock:
         self.lstEnsemble = [] #Liste contenant tout les ensembles du stock. ATTENTION un ensemble est constitué de vetements. C'est une composition
         
 
+
     def __add__(self, vetement):
         """ Ajoute un vetement à la liste sans risque d'avoir 2 fois le même vetement (suivant l'idVet)
         ex: Stock + vetement = Stock.lstVetement.append(vetement) à condition que le EAN du vetements ne soit pas déja dans la liste. 
         
-        :param vetement: Le vetements qu'on ajoute
+        :param vetement: Le vetements qu'on ajoute OU Ensemble 
         :type vetement: Vetement
         """
         if isinstance(vetement,Vetement):
@@ -99,6 +51,16 @@ class Stock:
                 for vetm in self.lstVetement:
                     if str(vetm.idVet) == str(vetement.idVet):
                         vetm.quantite += vetement.quantite
+                        break
+        elif isinstance(vetement,Ensemble):
+            if len(self.lstEnsemble) == 0:
+                self.lstEnsemble.append(vetement)
+            elif str(vetement.idEns) not in [str(e.idEns) for e in self.lstEnsemble]:
+                self.lstEnsemble.append(vetement) 
+            else:
+                for ens in self.lstEnsemble:
+                    if str(ens.idEns) == str(vetement.idEns):
+                        ens.quantite += vetement.quantite
                         break
 
     def calculValeur(self):
@@ -131,7 +93,55 @@ class Stock:
         return lstNonRep
 
 
+class Vetement:
+    """class qui représente le vêtement, les objets Vetements sont la base du programme
+    """
+    def __init__(self,idVet,strLibelle, strMarque,  strCouleur, strCategorie, dblPrixHTVA, dblTauxTVA,dblPrixAchat, taille = "Unique",Quantite =1,lstAssorti = []):
+        
+        self.idVet= idVet #numero EAN unique à chaque Vetement
+        self.libelle =strLibelle
+        self.marque= strMarque
+        self.couleur= strCouleur
+        self.categorie = strCategorie
+        self.prixHTVA = float(dblPrixHTVA)
+        self.tauxTVA = float(dblTauxTVA)
+        self.prixAchat = float(dblPrixAchat)
+        self.taille = taille
+        self.quantite =int(Quantite)
+        self.lstAssorti = lstAssorti #Le vetement self est bien assorti avec lstAssorti
 
+        self.reduction = 1 # si reduction, par défault = 1
+
+        self.lstAllElement=[self.idVet, self.libelle,self.marque,self.quantite,self.prixHTVA,self.tauxTVA,self.taille,self.categorie,self.couleur,self.lstAssorti]
+
+    
+    def updateLstAllElement(self):
+        """ Effectue un update dynamique de lstAllElment
+        """
+        self.lstAllElement=[self.idVet, self.libelle,self.marque,self.quantite,self.prixHTVA,self.tauxTVA,self.taille,self.categorie,self.couleur,self.lstAssorti]
+
+    def addVetAssort(self, vetm):
+        """ fonction qui ajoute un vetement à la lstAssorti sans redondance
+        """
+        if vetm not in self.lstAssorti:
+            self.lstAssorti.append(vetm)
+
+    def __str__(self):
+        """Utile pour afficher tous les attributs du Vetement. 
+        par Exemple lors d'un messagebox.showinfo
+        :return: La plupart des attributs du vetement chacun à la ligne
+        :rtype: str
+        """
+        return "Article:\nEAN : %s\nLibelle : %s\nMarque : %s\nQuantité : %s\nPrix : %s\nTaille : %s\nCatégorie : %s\nCouleur : %s"\
+            %(self.idVet,self.libelle,self.marque,self.quantite,self.prixTVAC(),self.taille,self.categorie,self.couleur)
+    
+    def prixTVAC(self):
+        """retourne le prix TVAC arrondi 2 chiffres après la virgule
+        
+        :return: retourne un prix 2 chiffres après la virgule
+        :rtype: Decimal
+        """
+        return Decimal(self.prixHTVA * ((self.tauxTVA/100.0) + 1.0) * self.reduction).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 
 
@@ -141,12 +151,22 @@ class Ensemble:
     :return: [description]
     :rtype: [type]
     """
-    def __init__(self,lstVetement,prixHTVA,tauxTVA):
+    def __init__(self,idEns, lib,lstVetement,prixHTVA,tauxTVA, quant =1):
+        self.idEns= idEns
+        self.libelle = lib
         self.lstVetement = lstVetement
+        self.quantite = quant
         self.prixHTVA = prixHTVA
         self.tauxTVA = tauxTVA
 
         self.reduction = 1
+
+    def addVet(self,objVet,quant =1):
+        if isinstance(objVet, Vetement):
+            copyVet= copy.deepcopy(objVet)
+            copyVet.quantite = quant
+            objVet.quantite -= quant
+            self.lstVetement.append(copyVet)
 
     def prixEnsemble(self):
         return self.prixHTVA * ((self.tauxTVA / 100) + 1) * self.reduction
@@ -164,23 +184,34 @@ class HistoriqueInOut:
         self.lstInOutStock= []
         self.lstLog =[]
 
-    def In(self, Vetement):
-        """procédure d'entrée en stock. Si on ajoute un quantité, ou un Vetement Non existant dans le Stock
-        
-        :param Vetement: Le Vetement qui fait un In
-        :type Vetement: Vetement()
-        """
-        self.idInOut +=1
-        self.lstInOutStock.append(InOutStock(self.idInOut, True, Vetement))
+    def In(self, Vetement,quant=1):
+        """Methode d'incrémentation de la lstInOutStock en ajoutant un objet InOutStock. 
+        Utilisation de copy.deepcopy afin de copier l'objet Vetement et pouvoir changer son état sans toucher au reel Vetement.
 
-    def Out(self, Vetement):
-        """Procédure de sortie de stock, si on supprime ou qu'on diminue une quantité
-        
-        :param Vetement: Le Vetement qui fait un In
+        :param Vetement: c'est le vetement qu'on entre dans le stock
         :type Vetement: Vetement()
-        """
+        :param quant: la quantité du Vetement
+        :type quant: int
+        """      
+        copyVet =  copy.deepcopy(Vetement)
+        copyVet.quantite = int(quant)
         self.idInOut +=1
-        self.lstInOutStock.append(InOutStock(self.idInOut, False, Vetement))
+        self.lstInOutStock.append(InOutStock(self.idInOut, True, copyVet))
+            
+    def Out(self, Vetement,quant=1):
+        """Methode d'incrémentation de la lstInOutStock en ajoutant un objet InOutStock. 
+        Utilisation de copy.deepcopy afin de copier l'objet Vetement et pouvoir changer son état sans toucher au reel Vetement.
+
+        :param Vetement: c'est le vetement qu'on sort du stock
+        :type Vetement: Vetement()
+        :param quant: la quantité du Vetement
+        :type quant: int
+        """        
+        copyVet =  copy.deepcopy(Vetement)
+        copyVet.quantite = int(quant)
+        self.idInOut +=1
+        self.lstInOutStock.append(InOutStock(self.idInOut, False, copyVet))
+        
 
 
 class InOutStock:
@@ -191,9 +222,10 @@ class InOutStock:
         self.dateTime = datetime.now()
         self.vetement = vetm
         self.InOut = InOut #True = In False = Out
+        #self.quantHist = quant
     
     def juTestStr(self):
-        return ("ID: %s\nDateTime : %s\nVetement : %s\nIn ou Out : %s" %(self.intNumInOutStock,self.dateTime,self.vetement,self.InOut))
+        return str("ID: %s\nDateTime : %s\nVetement : %s\nIn ou Out : %s" %(self.intNumInOutStock,self.dateTime,self.vetement,self.InOut))
 
 
 class LogInOut:
@@ -226,28 +258,5 @@ class Admin(Employe):
     def __init__(self):
         super.__init__(self)
 
-
 if __name__ == "__main__":
-    _stock = Stock()
-    _Historique = HistoriqueInOut()
-    _emp = tableEmployee()
-
-    #Data test 
-    Color = ["Rouge","Vert","Bleu","Gris","Arc-En-Ciel","Noir","Rose"]
-    Cat =["Sport","Femme","Homme","Enfant","intello","baraki"]
-    marque = ["Nike","Fila","DolceGabana","Audi","samsung","Sony","decomode","LaMarque"]
-    tva =[21.0,6.0,12.5]
-    size = ["S","XS","M","L","XL","XXL","XXL"]
-    for i in range(145):
-        _stock + Vetement(5414+i,"Lib%s" %(i),choice(marque),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
-        
-    
-    
-    for i,v in enumerate(_stock.lstVetement[0:2]):
-        v.lstAssorti.append(_stock.lstVetement[i])
-       
-    
-
-    mainFen = baseRoot(_stock, _Historique, _emp)
-
-    mainFen.mainloop() 
+    pass   

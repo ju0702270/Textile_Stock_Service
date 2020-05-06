@@ -6,6 +6,7 @@ Frame de caisse enregistreuse
 Documentation
 """
 
+
 ########Import##########
 from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar,X
 from tkinter import messagebox, ttk
@@ -35,7 +36,6 @@ class FrmVente(Frame):
         """
         Frame.__init__(self)
         self.parent = parent
-        Label(self,text = 'test').grid()
         
         self.l = LabelFrame(self, text="Gestion des ventes", padx=10, pady=5)
 
@@ -60,8 +60,7 @@ class FrmVente(Frame):
         
         self.tree.pack()
         
-        self.frmButton = Frame(self, bg = CouleurBlanc, relief = GROOVE, border = 2)
-        self.frmButton.grid(row = 0, column = 0, ipadx = 30 , ipady = 5)
+        self.frmButton = Frame(self.parent.frmButton, bg = CouleurBlanc)
         Frame(self.frmButton,height = 30,bg = CouleurBlanc).pack()
         ttk.Button(self.frmButton, text = "Payer", command = self.test, width = 15).pack()
         ttk.Button(self.frmButton, text = "Vider Panier", command = self.test,width = 15).pack()
@@ -69,13 +68,7 @@ class FrmVente(Frame):
         ttk.Button(self.frmButton, text = "imprimer Ticket", command = self.test,width = 15).pack()
         #*************end Frame button*******
         #************Frame des bouton de Menu******
-        self.frmMenu = Frame(self, bg = "#33b8ff", relief = GROOVE, border = 2)
-        self.frmMenu.grid(row = 1, column = 0, ipadx = 5 , ipady = 13)
-        Frame(self.frmMenu,height = 30,bg = CouleurBleu).pack()
-        Button(self.frmMenu,text = "Vente",command = self.test, bg = "#989898", relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Gestion_Stock",command = self.openStock, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Statistique",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Gestion_employé",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
+       
         #************end bouton de menu************
         self.info = StringVar()
         self.info.set("Aucune action effectuée")
@@ -99,3 +92,5 @@ class FrmVente(Frame):
         self.pack_forget()
         self.parent.frm_Stock.pack()
         
+if __name__ == "__main__":
+    pass   

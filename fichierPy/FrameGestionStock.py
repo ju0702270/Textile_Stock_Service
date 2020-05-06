@@ -3,13 +3,14 @@
 """
 Frame Gestion du stock
 ============================
-Documentation
+Ce module contient toute l'interface de la Frame Gestion du stock, ainsi que certaine méthode implémentée dans la frame. 
 """
 
 ########Import##########
 from tkinter import Tk,Toplevel,Frame,LabelFrame,GROOVE,Label,Button,StringVar
 from tkinter import messagebox, ttk
-from classUtil import Vetement
+from common import Vetement
+import pdb
 
 
 ########Global########## 
@@ -57,8 +58,8 @@ class FrmStock(Frame):
         self.frmrecherche()
         self.tree.pack()
         self.updateStock()
-        self.frmButton = Frame(self, bg = CouleurBlanc, relief = GROOVE, border = 2)
-        self.frmButton.grid(row = 0, column = 0, ipadx = 30 , ipady = 23)
+        #***********Frame des boutons principaux***********
+        self.frmButton = Frame(self.parent.frmButton, bg = CouleurBlanc)
         Frame(self.frmButton,height = 30,bg = CouleurBlanc).pack()
         ttk.Button(self.frmButton, text = "Rechercher", command = self.frmrecherche, width = 15).pack()
         ttk.Button(self.frmButton, text = "Ajouter", command = self.frmajout,width = 15).pack()
@@ -66,15 +67,6 @@ class FrmStock(Frame):
         ttk.Button(self.frmButton, text = "Supprimer", command = self.Supprimer,width = 15).pack()
         ttk.Button(self.frmButton, text = "exporter en Excel", command = self.test,width = 15).pack()
         #*************end Frame button*******
-        #************Frame des bouton de Menu******
-        self.frmMenu = Frame(self, bg = "#33b8ff", relief = GROOVE, border = 2)
-        self.frmMenu.grid(row = 1, column = 0, ipadx = 5 , ipady = 13)
-        Frame(self.frmMenu,height = 30,bg = CouleurBleu).pack()
-        Button(self.frmMenu,text = "Vente",command = self.openVente, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Gestion_Stock",command = self.test, bg = "#989898", relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Statistique",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
-        Button(self.frmMenu,text = "Gestion_employé",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20).pack(pady= 2)
-        #************end bouton de menu************
         self.info = StringVar()
         self.info.set("Aucune action effectuée")
         self.labInfo = Label(self.l,textvariable = self.info, bg = CouleurBlanc,width = 128,  anchor="w")
@@ -86,21 +78,19 @@ class FrmStock(Frame):
         messagebox.showinfo("TSS", "application en construction")
         #print(self.tree.focus())
     
-    def openVente(self):
-        self.pack_forget()
-        self.parent.frm_Vente.pack()
+
 
     def updateStock(self):
         """
         Fonction qui va mettre à jour le Tree de la Frame Gestion Stock avec les toutes  données de l'object stock
         """
         self.tree.delete(*self.tree.get_children())
+       
         for i,vetm in enumerate(self.parent.stock.lstVetement):
-            if int(i/2) == i/2:
-                self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur]\
-                    ,tags = 'pair')   
-            else:
-                self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+            self.tree.insert('', 'end', i , text=vetm.idVet,values = [vetm.libelle,vetm.marque, vetm.quantite,vetm.prixHTVA, vetm.tauxTVA, vetm.taille,vetm.categorie, vetm.couleur])
+           
+         
+            
 
 
     def changeFrame(self,frameToOpen):
@@ -152,13 +142,20 @@ class FrmStock(Frame):
             messagebox.showerror(title="Error", message="l'ajout à échoué!")
 
     def ajouter(self,event = None):
+        """ajouter est une méthode de la frame frmStock utilisée pour ajouter un Vetement dans le stock
+
+        :param event: defaults to None
+        :type event: None
+        """        
         try:
             valeur = [v.get()for v in self.entreeAj.values()]
-            if int(valeur[0]) not in [int(v.idVet) for v in self.parent.stock.lstVetement]:
+            if valeur[0] not in [v.idVet for v in self.parent.stock.lstVetement]:
                 self.parent.stock + Vetement(valeur[0],valeur[1],valeur[2],valeur[8],valeur[7],valeur[4],valeur[5],valeur[9], valeur[6],valeur[3])
-                self.parent.Historique.In( self.parent.stock.lstVetement[-1])
+                self.parent.Historique.In( self.parent.stock.lstVetement[-1],valeur[3])
                 messagebox.showinfo(title="Article ajouté", message="L'article %s a été ajouté avec succès" %(self.parent.stock.lstVetement[-1].idVet) )
+                self.recherche()
                 self.info.set("Ajout de l'article %s au stock" %(self.parent.stock.lstVetement[-1].idVet))
+                
             else: 
                messagebox.showinfo(title="en stock", message="Le numéro de vêtement que vous avez utilisé est déjà dans le stock. Pour modifier veuillez allez dans l'option Modifier")
         except :
@@ -171,16 +168,19 @@ class FrmStock(Frame):
 
         def changeQuant(event = None):
             """change la quantité de stock en effectuant un In, adapte aussi l'historique
-            """
+
+            :param event: None
+            :type event: None
+            """            
             try:
                 if int(quantite.get()) > 0:
-                    temp = self.parent.stock.lstVetement[int(self.tree.focus())].quantite
+                    #temp = self.parent.stock.lstVetement[int(self.tree.focus())].quantite
                     self.info.set("Ajout de %s quantité(s) de l'article %s" %(int(quantite.get()),self.parent.stock.lstVetement[int(self.tree.focus())].idVet))
                     messagebox.showinfo(title="Entrée en stock",message ="Ajout de %s quantité(s) pour:\n%s" \
                         %(int(quantite.get()),self.parent.stock.lstVetement[int(self.tree.focus())]))
-                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(quantite.get())
-                    self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())])
-                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite = temp  + int(quantite.get())
+                    #self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(quantite.get())
+                    self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())],int(quantite.get()))
+                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite += int(quantite.get())
                     self.tree.bind("<Button-1>", self.frmajout)
                     self.recherche()
                     rootIn.destroy()
@@ -303,15 +303,16 @@ class FrmStock(Frame):
             if str(self.dctStvModif["Numéro d'article"].get()) == str(self.parent.stock.lstVetement[int(self.tree.focus())].idVet):
                 messagebox.showinfo(title="Attention !", message="Toute modification des quantités entrainera un flux de stock!")
                 if messagebox.askyesno(title="Modification", message="Voulez-vous modifier ?\n%s" %(self.parent.stock.lstVetement[int(self.tree.focus())])):
+                    
                     if self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()) > 0:
                         messageInfo = "Modification: sortie de stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
-                        self.parent.stock.lstVetement[int(self.tree.focus())].quantite -= int(self.dctStvModif["Quantité"].get())
-                        self.parent.Historique.Out(self.parent.stock.lstVetement[int(self.tree.focus())])
+                        self.parent.Historique.Out(self.parent.stock.lstVetement[int(self.tree.focus())],\
+                        self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()))
                         
                     elif self.parent.stock.lstVetement[int(self.tree.focus())].quantite-int(self.dctStvModif["Quantité"].get()) < 0:
                         messageInfo = "Modification: entrée en stock de l'article %s" %(self.parent.stock.lstVetement[int(self.tree.focus())].idVet)
-                        self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(self.dctStvModif["Quantité"].get())-self.parent.stock.lstVetement[int(self.tree.focus())].quantite
-                        self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())])
+                        self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())],\
+                        int(self.dctStvModif["Quantité"].get())-self.parent.stock.lstVetement[int(self.tree.focus())].quantite)
                     try:
                         self.parent.stock.lstVetement[int(self.tree.focus())]= Vetement(self.dctStvModif["Numéro d'article"].get(),self.dctStvModif["Libéllé"].get(),\
                             self.dctStvModif["Marque"].get(),self.dctStvModif["Couleur"].get(),self.dctStvModif["Catégorie"].get(),self.dctStvModif["PrixHTVA"].get(),self.dctStvModif["Tva"].get(),\
@@ -346,6 +347,8 @@ class FrmStock(Frame):
         """
         Fonction du bouton Rechercher, qui va rechercher un Vetement correspondant aux Input utilisateur dans l'objet stock
         """
+        self.idVetfrRech.config(values = [vetm.idVet for vetm in self.parent.stock.lstVetement])   
+        self.libfrRech.config(values = [vetm.libelle for vetm in self.parent.stock.lstVetement])
         PrixMin = 0.0
         PrixMax = 9999999.0
         entryRech = [self.idVetfrRech,self.libfrRech,  self.MarquefrRech,self.catfrRech,self.taillefrRech,self.couleurfrRech,self.tvafrRech,self.quantfrRech]
@@ -407,6 +410,18 @@ class FrmStock(Frame):
                 else:
                     w.grid(row = i-int(len(lstCombo)/2)+1, column = 3,padx = 20, pady = 1)
                 w.bind("<Return>", self.recherche)
-            ttk.Button(self.frmRecherche, text ="Confirmer" , command = self.recherche).grid(row = 0, rowspan = 7, column = 4)
-            
+            ttk.Button(self.frmRecherche, text ="Confirmer" , command = self.recherche).grid(row = 0, rowspan = 2, column = 4)
+            ttk.Button(self.frmRecherche, text ="Ensemble" , command = self.showEnsemble).grid(row = 2, rowspan = 2, column = 4)
+            ttk.Button(self.frmRecherche, text ="Vetement" , command = self.updateStock).grid(row = 4, rowspan = 2, column = 4)
+
+    def showEnsemble(self,event = None):
+        self.idVetfrRech.config(values = [Ens.idEns for Ens in self.parent.stock.lstEnsemble])
+        self.libfrRech.config(values = [Ens.libelle for Ens in self.parent.stock.lstEnsemble])
+
+        self.tree.delete(*self.tree.get_children())
+        for i,Ens in enumerate(self.parent.stock.lstEnsemble):
+            self.tree.insert('', 'end', i , text=Ens.idEns,values = [Ens.libelle,'', Ens.quantite,Ens.prixHTVA, Ens.tauxTVA, '','','']) 
+
+if __name__ == "__main__":
+    pass          
 
