@@ -119,11 +119,13 @@ if __name__ == "__main__":
     for i in range(145):
         _stock + Vetement(5414+i,"Lib%s" %(i),choice(marque),choice(Color),choice(Cat),randrange(145),choice(tva),50+i, choice(size),randrange(50))
 
-    ens = Ensemble("AAAA","Ensemble Ete",[],50.0,21.0)
-    ens.addVet(_stock.lstVetement[1])
-    ens.addVet(_stock.lstVetement[2])
-    ens.addVet(_stock.lstVetement[3])
-    _stock + ens
+    
+    for i in range(20):
+         _stock + Ensemble("AA{}".format(i),"Ensemble Ete",[])
+         _stock.lstEnsemble[-1].addVet(_stock.lstVetement[randrange(0,len(_stock.lstVetement))])
+         _stock.lstEnsemble[-1].addVet(_stock.lstVetement[randrange(0,len(_stock.lstVetement))])
+         _stock.lstEnsemble[-1].addVet(_stock.lstVetement[randrange(0,len(_stock.lstVetement))])
+
 
 
   

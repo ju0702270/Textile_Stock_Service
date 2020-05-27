@@ -62,12 +62,74 @@ class Stock:
                     if str(ens.idEns) == str(vetement.idEns):
                         ens.quantite += vetement.quantite
                         break
+    
+    def __sub__(self,obj):
+        if obj in self.lstVetement:
+            self.lstVetement.remove(obj)
+        elif obj in self.lstEnsemble:
+            self.lstEnsemble.remove(obj)
+            
+
+    def get(self, id,obj = None):
+        """récupere un obj Vetement ou Ensemble dans le stock
+
+        :param id: id du vetment ou Ensemble
+        :type id: string
+        :return: objet Vetement/Ensemble
+        :rtype: Vetement/Ensemble
+        """        
+        if obj is not None:
+            if isinstance(obj,Vetement):
+                id = obj.idVet
+            elif isinstance(obj,Ensemble):
+                id = obj.idEns
+        if str(id) in [str(v.idVet) for v in self.lstVetement]:
+            for Vet in self.lstVetement:
+                if str(Vet.idVet) == str(id):
+                    return Vet
+        elif str(id) in [str(e.idEns) for e in self.lstEnsemble]:
+            for ens in self.lstEnsemble:
+                if ens.idEns == str(id) : 
+                    return ens
 
     def calculValeur(self):
+        """Calcul de la valeur total du stock HTVA
+
+        :return: la valeur monétaire du stock HTVA
+        :rtype: Decimal
+        """        
         valeurStock = 0
         for vtm in self.lstVetement:
             valeurStock += vtm.quantite * vtm.prixHTVA
-        return valeurStock 
+        for ens in self.lstEnsemble:
+            valeurStock += ens.quantite * ens.prixHTVA
+        return Decimal(valeurStock).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+
+    def calculTVAC(self):
+        """Fonction qui calcul le prix TVAC total du stock
+
+        :return: le prix TVAC du stock
+        :rtype: decimal
+        """
+        prixTVAC= 0
+        for v in self.lstVetement:
+            prixTVAC += v.prixTVAC()*v.quantite
+        for e in self.lstEnsemble:
+            prixTVAC += e.prixTVAC()*e.quantite
+        return Decimal(prixTVAC).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+
+    def coutTVA(self):
+        """fonction qui renvoi le cout total de la TVA
+
+        :return: le cout total de la TVA du stock
+        :rtype: decimal
+        """
+        cout = 0
+        for v in self.lstVetement:
+            cout += v.coutTVA()*v.quantite
+        for e in self.lstEnsemble:
+            cout += e.coutTVA()*e.quantite
+        return Decimal(cout).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
   
     def lstNonRep(self):
@@ -137,11 +199,20 @@ class Vetement:
     
     def prixTVAC(self):
         """retourne le prix TVAC arrondi 2 chiffres après la virgule
+        le prix unitaire
         
         :return: retourne un prix 2 chiffres après la virgule
         :rtype: Decimal
         """
         return Decimal(self.prixHTVA * ((self.tauxTVA/100.0) + 1.0) * self.reduction).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    
+    def coutTVA(self):
+        """fonction de calcul du cout de la TVA pour une quantité de 1
+
+        :return: le cout de la TVA
+        :rtype: Decimal
+        """
+        return Decimal(float(self.prixTVAC())-self.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 
 
@@ -151,25 +222,65 @@ class Ensemble:
     :return: [description]
     :rtype: [type]
     """
-    def __init__(self,idEns, lib,lstVetement,prixHTVA,tauxTVA, quant =1):
+    def __init__(self,idEns, lib,lstVetement, quant =1):
         self.idEns= idEns
         self.libelle = lib
         self.lstVetement = lstVetement
         self.quantite = quant
-        self.prixHTVA = prixHTVA
-        self.tauxTVA = tauxTVA
+        self.prixHTVA = self.calculPrixHTVA()
 
         self.reduction = 1
+
+    def calculPrixHTVA(self):
+        """calcul de la valeur de l'ensemble de vetement basé sur le prix HTVA de chaque vetement dans l'ensemble.
+
+        :return: le prix HTVA de l'ensemble
+        :rtype: float
+        """
+        prix = 0
+        for v in self.lstVetement:
+            prix +=v.prixHTVA*v.quantite
+        return prix
 
     def addVet(self,objVet,quant =1):
         if isinstance(objVet, Vetement):
             copyVet= copy.deepcopy(objVet)
-            copyVet.quantite = quant
-            objVet.quantite -= quant
-            self.lstVetement.append(copyVet)
+            if objVet.quantite >= quant:
+                copyVet.quantite = quant
+                objVet.quantite -= quant
+                if len(self.lstVetement) == 0:
+                    self.lstVetement.append(copyVet)
+                elif str(copyVet.idVet) not in [str(v.idVet) for v in self.lstVetement]:
+                    self.lstVetement.append(copyVet) 
+                else:
+                    for vetm in self.lstVetement:
+                        if str(vetm.idVet) == str(copyVet.idVet):
+                            vetm.quantite += copyVet.quantite
+                            break
+                self.tva()
+            self.prixHTVA = self.calculPrixHTVA()
+            
 
-    def prixEnsemble(self):
-        return self.prixHTVA * ((self.tauxTVA / 100) + 1) * self.reduction
+    def prixTVAC(self):
+        """Fonction qui retroune le prixTVAC de l'ensemble
+
+        :return: une prix TVAC
+        :rtype: Decimal
+        """
+        return Decimal(self.prixHTVA * ((self.tauxTVA/100.0) + 1.0) * self.reduction).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
+    
+    def tva(self):
+        """Fonction qui attribue le taux de TVA le plus élevé de la lstVetement
+        """
+        self.tauxTVA=sorted([v.tauxTVA for v in self.lstVetement])[-1]
+    
+    def coutTVA(self):
+        """fonction de calcul du cout de la TVA pour une quantité de 1
+
+        :return: le cout de la TVA
+        :rtype: Decimal
+        """
+        return Decimal(float(self.prixTVAC())-self.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)
 
 
 class HistoriqueInOut:
