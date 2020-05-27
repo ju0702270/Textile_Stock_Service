@@ -216,6 +216,7 @@ class FrmVente(Frame):
         :return: la chaine de caractère du ticket complet
         :rtype: String
         """
+        MonTicket = "%-70s" %("Textile Stock Service")
         now = datetime.now().strftime("%Y %b_%d %Hh%Mm%Ss")
         MonTicket += "\n%-70s" %(now)
         MonTicket += "\n%-3s%2s%-8s%2s%-37s%2s%7s%2s%7s" %("Qty"," ","Id"," ","Libelle"," ","P.U."," ",'Total')
