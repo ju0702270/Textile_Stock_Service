@@ -289,7 +289,7 @@ class HistoriqueInOut:
     def __init__(self):
         """:param self.idInOut = le numéro de la ligne, elle est unique dans la table HistoriqueInOut
         :param self.lstInOutStock = La liste contenant tout les Objet InOutStock
-        :param self.lstLog = La liste contenant tout les Objet LogInOut 
+        :param self.lstLog = La liste contenant tout les Objet LogInOut pour les connexions 
         """
         self.idInOut = 0
         self.lstInOutStock= []
@@ -306,6 +306,7 @@ class HistoriqueInOut:
         """      
         copyVet =  copy.deepcopy(Vetement)
         copyVet.quantite = int(quant)
+        Vetement.quantite += copyVet.quantite
         self.idInOut +=1
         self.lstInOutStock.append(InOutStock(self.idInOut, True, copyVet))
             
@@ -320,6 +321,7 @@ class HistoriqueInOut:
         """        
         copyVet =  copy.deepcopy(Vetement)
         copyVet.quantite = int(quant)
+        Vetement.quantite -= copyVet.quantite
         self.idInOut +=1
         self.lstInOutStock.append(InOutStock(self.idInOut, False, copyVet))
         
@@ -342,9 +344,9 @@ class InOutStock:
 class LogInOut:
     """les object de Log in ou Log out, a chaque fois qu'un employée se connecte ou se déconnecte on en crée un
     """
-    def __init__(self, numId, InOut, emp):
+    def __init__(self, numId, InOut, emp, date_time = datetime.now()):
         self.intNumLog = numId
-        self.dateTimeLog = datetime.now()
+        self.dateTimeLog = date_time
         self.employee = emp
         self.InOut = InOut
 

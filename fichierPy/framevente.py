@@ -47,7 +47,7 @@ class FrmVente(Frame):
         self.l = LabelFrame(self, text="Gestion des ventes", padx=10, pady=5)
 
         self.FrFond = Frame(self.l,relief = GROOVE, border = 2,  bg =CouleurBlanc)
-        self.FrFond.pack (ipadx = 223, ipady =20)
+        self.FrFond.pack (ipadx = 223, ipady =17)
 
         self.frmScan = Frame(self.FrFond, bg =CouleurBlanc)
         self.frmScan.pack(fill = X, expand = 1)
@@ -57,7 +57,7 @@ class FrmVente(Frame):
         self.key = ["Numéro d'article","Libéllé","Marque","Taille","Catégorie","Couleur","Quantité","PrixTVAC","Tva"]
         
         
-        self.tree = ttk.Treeview(self.l, columns = [k for k in self.key[1:None]],height=10)
+        self.tree = ttk.Treeview(self.l, columns = [k for k in self.key[1:None]],height=11)
         for i,k in enumerate(self.key):
             self.tree.heading('#%s' %(i),text = k)
             if k[0] not in ["T","P","Q","C"]:
@@ -192,10 +192,10 @@ class FrmVente(Frame):
             self.printTicket()
         messagebox.showinfo(title="Mon Ticket", message=self.StrTicket())
         for v in self.ticket.lstVetement:
-            self.parent.stock.get(v.idVet).quantite -= v.quantite
+            #self.parent.stock.get(v.idVet).quantite -= v.quantite
             self.parent.Historique.Out(v,v.quantite)
         for e in self.ticket.lstEnsemble:
-            self.parent.stock.get(e.idEns).quantite -= e.quantite
+            #self.parent.stock.get(e.idEns).quantite -= e.quantite
             self.parent.Historique.Out(e,e.quantite)
         self.viderPanier()
     

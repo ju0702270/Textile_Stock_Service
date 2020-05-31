@@ -65,7 +65,6 @@ class FrmStock(Frame):
         ttk.Button(self.frmButton, text = "Ajouter", command = self.frmajout,width = 15).pack()
         ttk.Button(self.frmButton, text = "Modifier", command = self.frmmodif,width = 15).pack()
         ttk.Button(self.frmButton, text = "Supprimer", command = self.Supprimer,width = 15).pack()
-        ttk.Button(self.frmButton, text = "exporter en Excel", command = self.test,width = 15).pack()
         #*************end Frame button*******
         self.info = StringVar()
         self.info.set("Aucune action effectuée")
