@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>fichierPy package &#8212; Documentation TSS 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/groundwork.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="TSS" href="modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="TSS"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">TSS</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="fichierpy-package">
+<h1>fichierPy package<a class="headerlink" href="#fichierpy-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-fichierPy.common">
+<span id="fichierpy-common-module"></span><h2>fichierPy.common module<a class="headerlink" href="#module-fichierPy.common" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="common">
+<h3>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h3>
+<p>Document avec les différentes Class commune
+Il représente la base du programme.
+Consigne: 
+-Ne rien supprimer sans l’accord des 2 autres.  au pire on mets en commentaire
+-Toutes modifications doit être vraiment bien testée. (ex: on améliore des lignes de code)
+-Ajouter est permis et encoragé. Attention à ne pas creer des fonctions ou procédure déja créée. 
+-Votre Code doit être commenté correctement. 
+-2 espaces entre les classe et 1 espace entre les fonctions et procedure. 
+-Toutes les library se trouve en haut dans Import de library
+-Toutes les variables globales dans Variables Global (on en utilise le moins possible)
+-Ne dépassez pas les 170 caractères sur une ligne (pour rester lisible)</p>
+<dl class="py class">
+<dt id="fichierPy.common.Admin">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">Admin</code><a class="reference internal" href="_modules/fichierPy/common.html#Admin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Admin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.Ensemble">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">Ensemble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idVet</span></em>, <em class="sig-param"><span class="n">lib</span></em>, <em class="sig-param"><span class="n">lstVetement</span></em>, <em class="sig-param"><span class="n">quant</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>à améliorer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)">type</a>]</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fichierPy.common.Ensemble.addVet">
+<code class="sig-name descname">addVet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">objVet</span></em>, <em class="sig-param"><span class="n">quant</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble.addVet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble.addVet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Ensemble.calculPrixHTVA">
+<code class="sig-name descname">calculPrixHTVA</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble.calculPrixHTVA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble.calculPrixHTVA" title="Permalink to this definition">¶</a></dt>
+<dd><p>calcul de la valeur de l’ensemble de vetement basé sur le prix HTVA de chaque vetement dans l’ensemble.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>le prix HTVA de l’ensemble</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Ensemble.coutTVA">
+<code class="sig-name descname">coutTVA</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble.coutTVA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble.coutTVA" title="Permalink to this definition">¶</a></dt>
+<dd><p>fonction de calcul du cout de la TVA pour une quantité de 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>le cout de la TVA</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Ensemble.prixTVAC">
+<code class="sig-name descname">prixTVAC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble.prixTVAC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble.prixTVAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui retroune le prixTVAC de l’ensemble</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>une prix TVAC</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Ensemble.tva">
+<code class="sig-name descname">tva</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Ensemble.tva"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Ensemble.tva" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui attribue le taux de TVA le plus élevé de la lstVetement</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.HistoriqueInOut">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">HistoriqueInOut</code><a class="reference internal" href="_modules/fichierPy/common.html#HistoriqueInOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.HistoriqueInOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class conteneur, qui contient tout les lignes de transaction d’entrée et sortie de stock</p>
+<dl class="py method">
+<dt id="fichierPy.common.HistoriqueInOut.In">
+<code class="sig-name descname">In</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Vetement</span></em>, <em class="sig-param"><span class="n">quant</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#HistoriqueInOut.In"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.HistoriqueInOut.In" title="Permalink to this definition">¶</a></dt>
+<dd><p>Methode d’incrémentation de la lstInOutStock en ajoutant un objet InOutStock. 
+Utilisation de copy.deepcopy afin de copier l’objet Vetement et pouvoir changer son état sans toucher au reel Vetement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Vetement</strong> (<a class="reference internal" href="#fichierPy.common.Vetement" title="fichierPy.common.Vetement"><em>Vetement</em></a><em>(</em><em>)</em>) – c’est le vetement qu’on entre dans le stock</p></li>
+<li><p><strong>quant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – la quantité du Vetement</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.HistoriqueInOut.Out">
+<code class="sig-name descname">Out</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Vetement</span></em>, <em class="sig-param"><span class="n">quant</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#HistoriqueInOut.Out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.HistoriqueInOut.Out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Methode d’incrémentation de la lstInOutStock en ajoutant un objet InOutStock. 
+Utilisation de copy.deepcopy afin de copier l’objet Vetement et pouvoir changer son état sans toucher au reel Vetement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Vetement</strong> (<a class="reference internal" href="#fichierPy.common.Vetement" title="fichierPy.common.Vetement"><em>Vetement</em></a><em>(</em><em>)</em>) – c’est le vetement qu’on sort du stock</p></li>
+<li><p><strong>quant</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – la quantité du Vetement</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.InOutStock">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">InOutStock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numId</span></em>, <em class="sig-param"><span class="n">InOut</span></em>, <em class="sig-param"><span class="n">vetm</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#InOutStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.InOutStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Les Object de transaction. à chaque entrée ou sortie de stock un object InOutStock doit être crée</p>
+<dl class="py method">
+<dt id="fichierPy.common.InOutStock.juTestStr">
+<code class="sig-name descname">juTestStr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#InOutStock.juTestStr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.InOutStock.juTestStr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.LogInOut">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">LogInOut</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">numId</span></em>, <em class="sig-param"><span class="n">InOut</span></em>, <em class="sig-param"><span class="n">emp</span></em>, <em class="sig-param"><span class="n">date_time</span><span class="o">=</span><span class="default_value">datetime.datetime(2020, 5, 31, 22, 14, 39, 176020)</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#LogInOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.LogInOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>les object de Log in ou Log out, a chaque fois qu’un employée se connecte ou se déconnecte on en crée un</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.Stock">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">Stock</code><a class="reference internal" href="_modules/fichierPy/common.html#Stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>La Class Stock contient tout les objets Vetements. C’est un peux la Table principale du programme</p>
+<dl class="py method">
+<dt id="fichierPy.common.Stock.calculTVAC">
+<code class="sig-name descname">calculTVAC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Stock.calculTVAC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock.calculTVAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui calcul le prix TVAC total du stock</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>le prix TVAC du stock</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Stock.calculValeur">
+<code class="sig-name descname">calculValeur</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Stock.calculValeur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock.calculValeur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calcul de la valeur total du stock HTVA</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>la valeur monétaire du stock HTVA</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Stock.coutTVA">
+<code class="sig-name descname">coutTVA</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Stock.coutTVA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock.coutTVA" title="Permalink to this definition">¶</a></dt>
+<dd><p>fonction qui renvoi le cout total de la TVA</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>le cout total de la TVA du stock</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Stock.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">obj</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Stock.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>récupere un obj Vetement ou Ensemble dans le stock</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>string</em>) – id du vetment ou Ensemble</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>objet Vetement/Ensemble</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Vetement/Ensemble</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Stock.lstNonRep">
+<code class="sig-name descname">lstNonRep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Stock.lstNonRep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Stock.lstNonRep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cree un disctionnaire non répétitif de plusieurs attribut de stock</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>disctionnaire de marque, color,car,taille,tva</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.User">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">User</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">userName</span></em>, <em class="sig-param"><span class="n">password</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#User"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="fichierPy.common.User.Rights">
+<code class="sig-name descname">Rights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">right</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#User.Rights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.User.Rights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="fichierPy.common.User.right">
+<code class="sig-name descname">right</code><em class="property"> = ('Admin', 'User')</em><a class="headerlink" href="#fichierPy.common.User.right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.Vetement">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">Vetement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idVet</span></em>, <em class="sig-param"><span class="n">strLibelle</span></em>, <em class="sig-param"><span class="n">strMarque</span></em>, <em class="sig-param"><span class="n">strCouleur</span></em>, <em class="sig-param"><span class="n">strCategorie</span></em>, <em class="sig-param"><span class="n">dblPrixHTVA</span></em>, <em class="sig-param"><span class="n">dblTauxTVA</span></em>, <em class="sig-param"><span class="n">dblPrixAchat</span></em>, <em class="sig-param"><span class="n">taille</span><span class="o">=</span><span class="default_value">'Unique'</span></em>, <em class="sig-param"><span class="n">Quantite</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">lstAssorti</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Vetement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Vetement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>class qui représente le vêtement, les objets Vetements sont la base du programme</p>
+<dl class="py method">
+<dt id="fichierPy.common.Vetement.addVetAssort">
+<code class="sig-name descname">addVetAssort</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vetm</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Vetement.addVetAssort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Vetement.addVetAssort" title="Permalink to this definition">¶</a></dt>
+<dd><p>fonction qui ajoute un vetement à la lstAssorti sans redondance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Vetement.coutTVA">
+<code class="sig-name descname">coutTVA</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Vetement.coutTVA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Vetement.coutTVA" title="Permalink to this definition">¶</a></dt>
+<dd><p>fonction de calcul du cout de la TVA pour une quantité de 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>le cout de la TVA</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Vetement.prixTVAC">
+<code class="sig-name descname">prixTVAC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Vetement.prixTVAC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Vetement.prixTVAC" title="Permalink to this definition">¶</a></dt>
+<dd><p>retourne le prix TVAC arrondi 2 chiffres après la virgule
+le prix unitaire</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>retourne un prix 2 chiffres après la virgule</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Decimal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.common.Vetement.updateLstAllElement">
+<code class="sig-name descname">updateLstAllElement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/common.html#Vetement.updateLstAllElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.Vetement.updateLstAllElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Effectue un update dynamique de lstAllElment</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fichierPy.common.tableEmployee">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.common.</code><code class="sig-name descname">tableEmployee</code><a class="reference internal" href="_modules/fichierPy/common.html#tableEmployee"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.common.tableEmployee" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>à définir</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fichierPy.framegestionstock">
+<span id="fichierpy-framegestionstock-module"></span><h2>fichierPy.framegestionstock module<a class="headerlink" href="#module-fichierPy.framegestionstock" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="frame-gestion-du-stock">
+<h3>Frame Gestion du stock<a class="headerlink" href="#frame-gestion-du-stock" title="Permalink to this headline">¶</a></h3>
+<p>Ce module contient toute l’interface de la Frame Gestion du stock, ainsi que certaine méthode implémentée dans la frame.</p>
+<dl class="py class">
+<dt id="fichierPy.framegestionstock.FrmStock">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.framegestionstock.</code><code class="sig-name descname">FrmStock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<p>C’est la Frame qui contient la Gestion du stock.</p>
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.InStock">
+<code class="sig-name descname">InStock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.InStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.InStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de modification de la quantité d’un article Vetement se trouvant déja dans le stock.
+La fonction n’éffectue qu’un In dans le stock. Les fonctions Out Stock sont prévue pour la fenetre de vente.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.Modifier">
+<code class="sig-name descname">Modifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.Modifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.Modifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de confirmation de modification d’un vetement. 
+Si l’idVet du vetement existe déjà, la modification se fera. 
+Si les Quantités de l’article change, les modifications seront prises en compte dans l’historique</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.Supprimer">
+<code class="sig-name descname">Supprimer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.Supprimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.Supprimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de suppression d’un vetement avec messages de confirmation utilisateur</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.ajouter">
+<code class="sig-name descname">ajouter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.ajouter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.ajouter" title="Permalink to this definition">¶</a></dt>
+<dd><p>ajouter est une méthode de la frame frmStock utilisée pour ajouter un Vetement dans le stock</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>event</strong> (<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><em>None</em></a>) – defaults to None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.changeFrame">
+<code class="sig-name descname">changeFrame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frameToOpen</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.changeFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.changeFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui ferme toutes les Frames pour n’ouvrir que la FrameToOpen</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.frmajout">
+<code class="sig-name descname">frmajout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.frmajout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.frmajout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creation de la Frame D’ajout</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.frmmodif">
+<code class="sig-name descname">frmmodif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.frmmodif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.frmmodif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de création de la Frame de modification</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.frmrecherche">
+<code class="sig-name descname">frmrecherche</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.frmrecherche"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.frmrecherche" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de création de la Frame de Recherche</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.reassortir">
+<code class="sig-name descname">reassortir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.reassortir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.reassortir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui va permettre à l’utilisateur d’assortir un vetement avec plusieurs autre vetement.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.recherche">
+<code class="sig-name descname">recherche</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.recherche"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.recherche" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction du bouton Rechercher, qui va rechercher un Vetement correspondant aux Input utilisateur dans l’objet stock</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.showEnsemble">
+<code class="sig-name descname">showEnsemble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.showEnsemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.showEnsemble" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framegestionstock.FrmStock.updateStock">
+<code class="sig-name descname">updateStock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framegestionstock.html#FrmStock.updateStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framegestionstock.FrmStock.updateStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction qui va mettre à jour le Tree de la Frame Gestion Stock avec les toutes  données de l’object stock</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fichierPy.framelogin">
+<span id="fichierpy-framelogin-module"></span><h2>fichierPy.framelogin module<a class="headerlink" href="#module-fichierPy.framelogin" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="frame-de-connexion">
+<h3>Frame de connexion<a class="headerlink" href="#frame-de-connexion" title="Permalink to this headline">¶</a></h3>
+<p>Documentation Générale</p>
+<dl class="py class">
+<dt id="fichierPy.framelogin.FrmAcceuil">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.framelogin.</code><code class="sig-name descname">FrmAcceuil</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<p>Classe servant pour l’interface graphique TK</p>
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.AjoutList">
+<code class="sig-name descname">AjoutList</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.AjoutList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.AjoutList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.AnnulerConnex">
+<code class="sig-name descname">AnnulerConnex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.AnnulerConnex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.AnnulerConnex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.ConfirmInscri">
+<code class="sig-name descname">ConfirmInscri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.ConfirmInscri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.ConfirmInscri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.FrameConnex">
+<code class="sig-name descname">FrameConnex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.FrameConnex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.FrameConnex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.FrameInscription">
+<code class="sig-name descname">FrameInscription</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.FrameInscription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.FrameInscription" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.Quitter">
+<code class="sig-name descname">Quitter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.Quitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.Quitter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.changeFrame">
+<code class="sig-name descname">changeFrame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frmToOpen</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.changeFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.changeFrame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.connect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.logOut">
+<code class="sig-name descname">logOut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.logOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.logOut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framelogin.FrmAcceuil.login">
+<code class="sig-name descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framelogin.html#FrmAcceuil.login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framelogin.FrmAcceuil.login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fichierPy.framestatintegration">
+<span id="fichierpy-framestatintegration-module"></span><h2>fichierPy.framestatintegration module<a class="headerlink" href="#module-fichierPy.framestatintegration" title="Permalink to this headline">¶</a></h2>
+<p>Package de la fentre des statistiques.</p>
+<dl class="py class">
+<dt id="fichierPy.framestatintegration.FrmStat">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.framestatintegration.</code><code class="sig-name descname">FrmStat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.affichageFrameG">
+<code class="sig-name descname">affichageFrameG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.affichageFrameG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.affichageFrameG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.affichageFrameH">
+<code class="sig-name descname">affichageFrameH</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.affichageFrameH"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.affichageFrameH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.comparaisonString">
+<code class="sig-name descname">comparaisonString</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chaineA</span></em>, <em class="sig-param"><span class="n">chaineB</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.comparaisonString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.comparaisonString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.construtFrameE">
+<code class="sig-name descname">construtFrameE</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.construtFrameE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.construtFrameE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.dailyReport">
+<code class="sig-name descname">dailyReport</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.dailyReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.dailyReport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.idVetLst">
+<code class="sig-name descname">idVetLst</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inOrOut</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.idVetLst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.idVetLst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.rechercheVet">
+<code class="sig-name descname">rechercheVet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.rechercheVet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.rechercheVet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.remplirTreeview">
+<code class="sig-name descname">remplirTreeview</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.remplirTreeview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.remplirTreeview" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.remplirTreeviewDailyReport">
+<code class="sig-name descname">remplirTreeviewDailyReport</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.remplirTreeviewDailyReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.remplirTreeviewDailyReport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.remplirTreeviewSearch">
+<code class="sig-name descname">remplirTreeviewSearch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.remplirTreeviewSearch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.remplirTreeviewSearch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.remplirTreeviewStock">
+<code class="sig-name descname">remplirTreeviewStock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.remplirTreeviewStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.remplirTreeviewStock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.remplirTreeviewTop10">
+<code class="sig-name descname">remplirTreeviewTop10</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.remplirTreeviewTop10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.remplirTreeviewTop10" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.top10Vet">
+<code class="sig-name descname">top10Vet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.top10Vet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.top10Vet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framestatintegration.FrmStat.viderTreeview">
+<code class="sig-name descname">viderTreeview</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framestatintegration.html#FrmStat.viderTreeview"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framestatintegration.FrmStat.viderTreeview" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-fichierPy.framevente">
+<span id="fichierpy-framevente-module"></span><h2>fichierPy.framevente module<a class="headerlink" href="#module-fichierPy.framevente" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="frame-de-caisse-enregistreuse">
+<h3>Frame de caisse enregistreuse<a class="headerlink" href="#frame-de-caisse-enregistreuse" title="Permalink to this headline">¶</a></h3>
+<p>Documentation</p>
+<dl class="py class">
+<dt id="fichierPy.framevente.FrmVente">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.framevente.</code><code class="sig-name descname">FrmVente</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Frame</span></code></p>
+<p>C’est la Frame qui contient la gestion des ventes.</p>
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.Payer">
+<code class="sig-name descname">Payer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.Payer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.Payer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Méthode d’affichage d’un message d’alerte contenant une vue du ticket de caisse. Afin de faire payer le client. 
+Adaptation du Stock, et mise à jour de l’historique avec de nouvelle transaction, et vidange du panier</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.StrTicket">
+<code class="sig-name descname">StrTicket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.StrTicket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.StrTicket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Methode d’écriture du ticket de caisse</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>la chaine de caractère du ticket complet</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.addObjet">
+<code class="sig-name descname">addObjet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.addObjet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.addObjet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Methode d’ajout d’un objet vetement ou ensemble dans le self.ticket, sans redondance et sans toucher au stock</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.openStock">
+<code class="sig-name descname">openStock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.openStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.openStock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.printTicket">
+<code class="sig-name descname">printTicket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.printTicket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.printTicket" title="Permalink to this definition">¶</a></dt>
+<dd><p>methode de creation d’un ticket de caisse dans la rubrique Ticket</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.showTicket">
+<code class="sig-name descname">showTicket</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.showTicket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.showTicket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Méthode pour remettre à jour le contenu de la Treeview self.tree par le contenu nouveau du ticket, et adaptation des self.FooterHTVA, self.FooterTVAC,self.FooterTVA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.supprimerArticle">
+<code class="sig-name descname">supprimerArticle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.supprimerArticle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.supprimerArticle" title="Permalink to this definition">¶</a></dt>
+<dd><p>fonction de suppression d’un article de la treeview</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.framevente.FrmVente.viderPanier">
+<code class="sig-name descname">viderPanier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/framevente.html#FrmVente.viderPanier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.framevente.FrmVente.viderPanier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fonction de remise à zero du ticket et de la treeview, on recommence à Zero</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fichierPy.interface">
+<span id="fichierpy-interface-module"></span><h2>fichierPy.interface module<a class="headerlink" href="#module-fichierPy.interface" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interface">
+<h3>interface<a class="headerlink" href="#interface" title="Permalink to this headline">¶</a></h3>
+<p>Ce document est le document main à lancer pour faire fonctionner la solution</p>
+<dl class="py class">
+<dt id="fichierPy.interface.baseRoot">
+<em class="property">class </em><code class="sig-prename descclassname">fichierPy.interface.</code><code class="sig-name descname">baseRoot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_stockement</span></em>, <em class="sig-param"><span class="n">Historique</span></em>, <em class="sig-param"><span class="n">tableEmp</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/tkinter.html#tkinter.Tk" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tkinter.Tk</span></code></a></p>
+<p>Class d’initiation à la root Tkinter, C’est cet objet qui supporte tout le programme.
+Chaque Frame que vous faites doit être integrée dedans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Tk</strong> (<em>Tk</em><em>(</em><em>)</em>) – Tkinter.Tk</p></li>
+<li><p><strong>_stockement</strong> (<a class="reference internal" href="#fichierPy.common.Stock" title="fichierPy.common.Stock"><em>Stock</em></a><em>(</em><em>)</em>) – c’est un objet stock contenant des vetements</p></li>
+<li><p><strong>Historique</strong> (<a class="reference internal" href="#fichierPy.common.HistoriqueInOut" title="fichierPy.common.HistoriqueInOut"><em>HistoriqueInOut</em></a><em>(</em><em>)</em>) – c’est l’historique de toute les transactions</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.closeTSS">
+<code class="sig-name descname">closeTSS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.closeTSS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.closeTSS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.openTSS">
+<code class="sig-name descname">openTSS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.openTSS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.openTSS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.switchFrameS">
+<code class="sig-name descname">switchFrameS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.switchFrameS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.switchFrameS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.switchFrameStat">
+<code class="sig-name descname">switchFrameStat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.switchFrameStat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.switchFrameStat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.switchFrameV">
+<code class="sig-name descname">switchFrameV</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.switchFrameV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.switchFrameV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="fichierPy.interface.baseRoot.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fichierPy/interface.html#baseRoot.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fichierPy.interface.baseRoot.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fichierPy">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fichierPy" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">fichierPy package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-fichierPy.common">fichierPy.common module</a><ul>
+<li><a class="reference internal" href="#common">Common</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-fichierPy.framegestionstock">fichierPy.framegestionstock module</a><ul>
+<li><a class="reference internal" href="#frame-gestion-du-stock">Frame Gestion du stock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-fichierPy.framelogin">fichierPy.framelogin module</a><ul>
+<li><a class="reference internal" href="#frame-de-connexion">Frame de connexion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-fichierPy.framestatintegration">fichierPy.framestatintegration module</a></li>
+<li><a class="reference internal" href="#module-fichierPy.framevente">fichierPy.framevente module</a><ul>
+<li><a class="reference internal" href="#frame-de-caisse-enregistreuse">Frame de caisse enregistreuse</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-fichierPy.interface">fichierPy.interface module</a><ul>
+<li><a class="reference internal" href="#interface">interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-fichierPy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">TSS</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fichierPy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="TSS"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >TSS</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Rochez Justin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+    </div>
+  </body>
+</html>

@@ -6,26 +6,19 @@ Frame de connexion
 --------------------------
 Documentation Générale
 """
-from tkinter import LabelFrame,Frame,Label,Pack,Entry
+from tkinter import LabelFrame,Frame,Label,Pack,Entry,messagebox,RIGHT,StringVar
 from tkinter import ttk
+from common import Admin,User
 
-
-class User: # Classe de User encore inutilisée. En Test
-    right = ("Admin", "User")
-
-    def __init__(self, name, userName, password):
-        self.name=name
-        self.userName=userName
-        self.password=password
-
-    def Rights(self, right):
-        self.userRights = input("Droits de l'utilisateur : ")
-        if self.userRights == 1:
-            self.userRights = right[0]
-        else:
-            self.userRights = right[1]
-        return self.userRights
-
+from pathlib import Path
+########Global########## 
+CouleurBlanc = "#FFFFFF"
+CouleurBleu ="#33b8ff"
+directory = Path(__file__).parent
+widthSpinBox = 21
+widthEntry = 23
+widthLabel = 20
+widthCombo = 20
 
 
 class FrmAcceuil(Frame):
@@ -60,7 +53,7 @@ class FrmAcceuil(Frame):
         self.label_password.pack()
         self.entry_password = Entry(self.frame_connex, show="*")
         self.entry_password.pack()
-        self.button_connex = ttk.Button(self.frame_connex, text="Connexion",width = 15) #Ajouter la commande permettant d'accéder au menu d'utilisateur
+        self.button_connex = ttk.Button(self.frame_connex, text="Connexion",width = 15,command = self.login) #Ajouter la commande permettant d'accéder au menu d'utilisateur
         self.button_connex.pack()
         self.button_annuler = ttk.Button(self.frame_connex, text="Annuler", command=self.AnnulerConnex,width = 15)
         self.button_annuler.pack()
@@ -104,24 +97,69 @@ class FrmAcceuil(Frame):
         self.changeFrame(self.frame_inscri)
 
     def ConfirmInscri(self): #Confirme l'inscription
-        self.user=[]
+        self.root.user=[]
         self.name=self.entry_name.get()
         self.username=self.entry_username.get()
         self.pw1=self.entry_newPW.get()
         self.pw2=self.entry_confirmPW.get()
         if self.pw1 == self.pw2:
             self.AjoutList()
+            messagebox.showinfo("Inscription", "Bienvenue Utilisateur %s" %(self.root.user[-1].name))
+            self.root.userActif = self.root.user[-1]
             self.frame_inscri.pack_forget()
+            self.entry_name.delete(0,'end')
+            self.entry_username.delete(0,'end')
+            self.entry_newPW.delete(0,'end')
+            self.entry_confirmPW.delete(0,'end')
             #self.FrameAccueil()
             self.frame_acc.pack()
-            print(self.user)
+            self.connect()
         else:
             #Affiche un message d'erreur sur la confirmation du mot de passe. Doit être optimisée
-            print("les mots de passes ne correspondent pas")
+            messagebox.showinfo("Inscription", "Les Passwords doivent correspondre")
+            #print("les mots de passes ne correspondent pas")
+
+    def login(self):
+        acces = False
+        for u in self.root.user:
+            if str(u.userName) == str(self.entry_user.get()) and str(u.password) == str(self.entry_password.get()):
+                self.root.userActif = u
+                self.entry_user.delete(0,'end')
+                self.entry_password.delete(0,'end')
+                self.connect()
+                acces = True
+                break
+        if not acces:
+            self.entry_user.delete(0,'end')
+            self.entry_password.delete(0,'end')
+            messagebox.showinfo("Login", "Utilisateur introuvable veuillez vous inscrire")
+
+
+    def connect(self):
+        self.pack_forget()   
+        self.frmUser= Frame(self.root)
+        self.InfoUser = LabelFrame(self.frmUser,text='Utilisateur', relief="groove", bd=2, height=600, width=500,bg =CouleurBlanc)
+        self.InfoUser.pack(side= RIGHT)
+        self.userName =StringVar()
+        self.userName.set("User Name: %s" %(self.root.userActif.userName))
+        Label(self.InfoUser, textvariable = self.userName  ,bg =CouleurBlanc,width =widthLabel, anchor="w").grid(row = 0, column = 0, columnspan = 2)
+        ttk.Button(self.InfoUser,text = "LogOut", command = self.logOut).grid(row = 1, column = 0)
+        ttk.Button(self.InfoUser,text = "Quitter", command = self.Quitter).grid(row = 1, column = 1)
+        self.frmUser.pack(ipadx = 350)
+        self.root.openTSS()
+
+    
+
+    def logOut(self):
+        self.root.userActif = None
+        self.frmUser.pack_forget()
+        self.root.closeTSS()
+
+    def Quitter(self):
+        self.root.quit()
 
     def AjoutList(self): #Crée et ajoute une liste avec les instructions d'inscription
-            self.newUser=[self.name, self.username, self.pw1]
-            return self.user.append(self.newUser)
+        self.root.user.append(User(self.name, self.username, self.pw1))
 
 if __name__ == "__main__":
     pass   

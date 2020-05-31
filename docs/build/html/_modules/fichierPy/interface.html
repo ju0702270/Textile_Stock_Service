@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>fichierPy.interface &#8212; Documentation TSS 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/groundwork.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for fichierPy.interface</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">## author : Rochez Justin,Dif Nassim, Becquet Emilien</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">interface</span>
+<span class="sd">--------------------------</span>
+<span class="sd">Ce document est le document main à lancer pour faire fonctionner la solution</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span><span class="p">,</span><span class="n">messagebox</span><span class="p">,</span><span class="n">Tk</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">BOTH</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Frame</span><span class="p">,</span><span class="n">GROOVE</span><span class="p">,</span><span class="n">Button</span><span class="p">,</span><span class="n">LEFT</span>
+<span class="c1">#from framelogin import User,FrmAcceuil</span>
+<span class="c1">#from framegestionstock import FrmStock</span>
+<span class="c1">#from framevente import FrmVente</span>
+<span class="c1">#from framestatintegration import FrmStat</span>
+<span class="c1">#from common import Stock,HistoriqueInOut,tableEmployee,Vetement,Ensemble,User</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="c1">#importTest</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span><span class="p">,</span><span class="n">randrange</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="c1">########Global########## </span>
+<span class="n">CouleurBlanc</span> <span class="o">=</span> <span class="s2">&quot;#FFFFFF&quot;</span>
+<span class="n">CouleurBleu</span> <span class="o">=</span><span class="s2">&quot;#33b8ff&quot;</span>
+<span class="n">CouleurGris</span> <span class="o">=</span> <span class="s2">&quot;#989898&quot;</span>
+
+<span class="n">widthSpinBox</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">widthEntry</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="n">widthLabel</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">widthCombo</span> <span class="o">=</span> <span class="mi">20</span>
+
+<div class="viewcode-block" id="baseRoot"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot">[docs]</a><span class="k">class</span> <span class="nc">baseRoot</span><span class="p">(</span><span class="n">Tk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class d&#39;initiation à la root Tkinter, C&#39;est cet objet qui supporte tout le programme.</span>
+<span class="sd">    Chaque Frame que vous faites doit être integrée dedans. </span>
+<span class="sd">    </span>
+<span class="sd">    :param Tk: Tkinter.Tk</span>
+<span class="sd">    :type Tk: Tk()</span>
+<span class="sd">    :param _stockement: c&#39;est un objet stock contenant des vetements </span>
+<span class="sd">    :type _stockement: Stock()</span>
+<span class="sd">    :param Historique: c&#39;est l&#39;historique de toute les transactions</span>
+<span class="sd">    :type Historique: HistoriqueInOut()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">_stockement</span><span class="p">,</span> <span class="n">Historique</span><span class="p">,</span> <span class="n">tableEmp</span><span class="p">):</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;TSS&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minsize</span><span class="p">(</span><span class="mi">1050</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iconbitmap</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="se">\\</span><span class="s2">TSS_logo-ConvertImage.ico&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># Ceci est la Frame qui va permettre que le programme soit correctement centré</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="c1">##### ici c&#39;est uyn peu la base de données du programme avec 3 grosses tables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stock</span> <span class="o">=</span> <span class="n">_stockement</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Historique</span> <span class="o">=</span> <span class="n">Historique</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">=</span> <span class="p">[]</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">userActif</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Login</span> <span class="o">=</span> <span class="n">FrmAcceuil</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Login</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1"># Frame du Login (Emilien)</span>
+        <span class="c1">###### Frame en bas à gauche avec le choix des menus Vente, stat etc</span>
+
+
+<div class="viewcode-block" id="baseRoot.closeTSS"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.closeTSS">[docs]</a>    <span class="k">def</span> <span class="nf">closeTSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Login</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="baseRoot.openTSS"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.openTSS">[docs]</a>    <span class="k">def</span> <span class="nf">openTSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBleu</span><span class="p">,</span><span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ipadx</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">ipady</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
+        <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBleu</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btV</span><span class="o">=</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Vente&quot;</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">switchFrameV</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">,</span> <span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btV</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btS</span><span class="o">=</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Gestion_Stock&quot;</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">switchFrameS</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurGris</span><span class="p">,</span> <span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btS</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btStat</span><span class="o">=</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Statistique&quot;</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">switchFrameStat</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">,</span> <span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btStat</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btE</span><span class="o">=</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmMenu</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Gestion_employé&quot;</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">,</span> <span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btE</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        
+        
+        
+        <span class="c1"># Init de la Frame des boutons Dans votre Class vous passer le parametre de l&#39;objet baseroot vous placez les boutons principaux dans cette frame. </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmButton</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frPosn</span><span class="p">,</span> <span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">,</span> <span class="n">relief</span> <span class="o">=</span> <span class="n">GROOVE</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ipadx</span> <span class="o">=</span> <span class="mi">30</span> <span class="p">,</span> <span class="n">ipady</span> <span class="o">=</span> <span class="mi">23</span><span class="p">)</span>
+       
+        <span class="c1">###### Toutes les Class FRAME</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span> <span class="o">=</span> <span class="n">FrmVente</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="c1"># Frame de la Gestion des ventes (???)</span>
+        <span class="c1">#self.frm_Vente.pack()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span> <span class="o">=</span> <span class="n">FrmStock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1">#Frame de la gestion de stock ( Justin )</span>
+        <span class="c1">#self.frm_Stock.pack(side = LEFT) </span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span> <span class="o">=</span> <span class="n">FrmStat</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># Frame de la gestion des statistiques (Nassim)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Employé</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="c1"># Frame de la gestion des Employe (???)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">switchFrameV</span><span class="p">()</span></div>
+
+
+
+        
+
+        
+    
+
+<div class="viewcode-block" id="baseRoot.test"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;TSS&quot;</span><span class="p">,</span> <span class="s2">&quot;application en construction&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="baseRoot.switchFrameStat"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.switchFrameStat">[docs]</a>    <span class="k">def</span> <span class="nf">switchFrameStat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">btV</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btS</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btStat</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurGris</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">LEFT</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="baseRoot.switchFrameV"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.switchFrameV">[docs]</a>    <span class="k">def</span> <span class="nf">switchFrameV</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">btV</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurGris</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btS</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btStat</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">LEFT</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="baseRoot.switchFrameS"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.interface.baseRoot.switchFrameS">[docs]</a>    <span class="k">def</span> <span class="nf">switchFrameS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">frmButton</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">btS</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurGris</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btV</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btStat</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span> <span class="o">=</span> <span class="n">CouleurBlanc</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Vente</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stat</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frm_Stock</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">LEFT</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_stock</span> <span class="o">=</span> <span class="n">Stock</span><span class="p">()</span>
+    <span class="n">_Historique</span> <span class="o">=</span> <span class="n">HistoriqueInOut</span><span class="p">()</span>
+    <span class="n">_emp</span> <span class="o">=</span> <span class="n">tableEmployee</span><span class="p">()</span>
+
+    <span class="c1">#Data test </span>
+    <span class="n">Color</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Rouge&quot;</span><span class="p">,</span><span class="s2">&quot;Vert&quot;</span><span class="p">,</span><span class="s2">&quot;Bleu&quot;</span><span class="p">,</span><span class="s2">&quot;Gris&quot;</span><span class="p">,</span><span class="s2">&quot;Arc-En-Ciel&quot;</span><span class="p">,</span><span class="s2">&quot;Noir&quot;</span><span class="p">,</span><span class="s2">&quot;Rose&quot;</span><span class="p">]</span>
+    <span class="n">Cat</span> <span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sport&quot;</span><span class="p">,</span><span class="s2">&quot;Femme&quot;</span><span class="p">,</span><span class="s2">&quot;Homme&quot;</span><span class="p">,</span><span class="s2">&quot;Enfant&quot;</span><span class="p">,</span><span class="s2">&quot;intello&quot;</span><span class="p">,</span><span class="s2">&quot;baraki&quot;</span><span class="p">]</span>
+    <span class="n">marque</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Nike&quot;</span><span class="p">,</span><span class="s2">&quot;Fila&quot;</span><span class="p">,</span><span class="s2">&quot;DolceGabana&quot;</span><span class="p">,</span><span class="s2">&quot;Audi&quot;</span><span class="p">,</span><span class="s2">&quot;samsung&quot;</span><span class="p">,</span><span class="s2">&quot;Sony&quot;</span><span class="p">,</span><span class="s2">&quot;decomode&quot;</span><span class="p">,</span><span class="s2">&quot;LaMarque&quot;</span><span class="p">]</span>
+    <span class="n">tva</span> <span class="o">=</span><span class="p">[</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">,</span><span class="mf">12.5</span><span class="p">]</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">,</span><span class="s2">&quot;XS&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">,</span><span class="s2">&quot;L&quot;</span><span class="p">,</span><span class="s2">&quot;XL&quot;</span><span class="p">,</span><span class="s2">&quot;XXL&quot;</span><span class="p">,</span><span class="s2">&quot;XXL&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">145</span><span class="p">):</span>
+        <span class="n">_stock</span> <span class="o">+</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">5414</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;Lib</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">choice</span><span class="p">(</span><span class="n">marque</span><span class="p">),</span><span class="n">choice</span><span class="p">(</span><span class="n">Color</span><span class="p">),</span><span class="n">choice</span><span class="p">(</span><span class="n">Cat</span><span class="p">),</span><span class="n">randrange</span><span class="p">(</span><span class="mi">145</span><span class="p">),</span><span class="n">choice</span><span class="p">(</span><span class="n">tva</span><span class="p">),</span><span class="mi">50</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">choice</span><span class="p">(</span><span class="n">size</span><span class="p">),</span><span class="n">randrange</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+
+
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+         <span class="n">_stock</span> <span class="o">+</span> <span class="n">Ensemble</span><span class="p">(</span><span class="s2">&quot;AA</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="s2">&quot;Ensemble Ete&quot;</span><span class="p">,[])</span>
+         <span class="n">_stock</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">addVet</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">[</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">))])</span>
+         <span class="n">_stock</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">addVet</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">[</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">))])</span>
+         <span class="n">_stock</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">addVet</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">[</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">))])</span>
+
+
+
+  
+        
+    
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">lstAssorti</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_stock</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+    <span class="n">jeans</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">1110</span><span class="p">,</span><span class="s2">&quot;jeans&quot;</span><span class="p">,</span><span class="s2">&quot;nike&quot;</span><span class="p">,</span><span class="s2">&quot;bleu&quot;</span><span class="p">,</span><span class="s2">&quot;bas&quot;</span><span class="p">,</span><span class="mf">50.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">25.0</span><span class="p">,</span><span class="s2">&quot;xxl&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">pull</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">1111</span><span class="p">,</span><span class="s2">&quot;pull&quot;</span><span class="p">,</span><span class="s2">&quot;adidas&quot;</span><span class="p">,</span><span class="s2">&quot;vert&quot;</span><span class="p">,</span><span class="s2">&quot;haut&quot;</span><span class="p">,</span><span class="mf">28.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">15.0</span><span class="p">,</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">blouse</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">2222</span><span class="p">,</span><span class="s2">&quot;blouse&quot;</span><span class="p">,</span><span class="s2">&quot;tachini&quot;</span><span class="p">,</span><span class="s2">&quot;rouge&quot;</span><span class="p">,</span><span class="s2">&quot;manteau&quot;</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">,</span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">pantalon</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">3333</span><span class="p">,</span><span class="s2">&quot;pantalon&quot;</span><span class="p">,</span><span class="s2">&quot;nike&quot;</span><span class="p">,</span><span class="s2">&quot;bleu&quot;</span><span class="p">,</span><span class="s2">&quot;bas&quot;</span><span class="p">,</span><span class="mf">50.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">25.0</span><span class="p">,</span><span class="s2">&quot;xxl&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">robe</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">4444</span><span class="p">,</span><span class="s2">&quot;robe&quot;</span><span class="p">,</span><span class="s2">&quot;adidas&quot;</span><span class="p">,</span><span class="s2">&quot;vert&quot;</span><span class="p">,</span><span class="s2">&quot;haut&quot;</span><span class="p">,</span><span class="mf">28.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">15.0</span><span class="p">,</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+
+    <span class="n">jupe</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">5555</span><span class="p">,</span><span class="s2">&quot;jupe&quot;</span><span class="p">,</span><span class="s2">&quot;tachini&quot;</span><span class="p">,</span><span class="s2">&quot;rouge&quot;</span><span class="p">,</span><span class="s2">&quot;manteau&quot;</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">,</span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">chemise</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">6666</span><span class="p">,</span><span class="s2">&quot;chemise&quot;</span><span class="p">,</span><span class="s2">&quot;nike&quot;</span><span class="p">,</span><span class="s2">&quot;bleu&quot;</span><span class="p">,</span><span class="s2">&quot;bas&quot;</span><span class="p">,</span><span class="mf">50.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">25.0</span><span class="p">,</span><span class="s2">&quot;xxl&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">sweat</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">7777</span><span class="p">,</span><span class="s2">&quot;sweat&quot;</span><span class="p">,</span><span class="s2">&quot;adidas&quot;</span><span class="p">,</span><span class="s2">&quot;vert&quot;</span><span class="p">,</span><span class="s2">&quot;haut&quot;</span><span class="p">,</span><span class="mf">28.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">15.0</span><span class="p">,</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">costume</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">8888</span><span class="p">,</span><span class="s2">&quot;costume&quot;</span><span class="p">,</span><span class="s2">&quot;tachini&quot;</span><span class="p">,</span><span class="s2">&quot;rouge&quot;</span><span class="p">,</span><span class="s2">&quot;manteau&quot;</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">,</span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">cravate</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">9999</span><span class="p">,</span><span class="s2">&quot;cravate&quot;</span><span class="p">,</span><span class="s2">&quot;nike&quot;</span><span class="p">,</span><span class="s2">&quot;bleu&quot;</span><span class="p">,</span><span class="s2">&quot;bas&quot;</span><span class="p">,</span><span class="mf">50.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">25.0</span><span class="p">,</span><span class="s2">&quot;xxl&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">tailleur</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">1010</span><span class="p">,</span><span class="s2">&quot;tailleur&quot;</span><span class="p">,</span><span class="s2">&quot;adidas&quot;</span><span class="p">,</span><span class="s2">&quot;vert&quot;</span><span class="p">,</span><span class="s2">&quot;haut&quot;</span><span class="p">,</span><span class="mf">28.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">15.0</span><span class="p">,</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">uniforme</span> <span class="o">=</span> <span class="n">Vetement</span><span class="p">(</span><span class="mi">1011</span><span class="p">,</span><span class="s2">&quot;uniforme&quot;</span><span class="p">,</span><span class="s2">&quot;tachini&quot;</span><span class="p">,</span><span class="s2">&quot;rouge&quot;</span><span class="p">,</span><span class="s2">&quot;manteau&quot;</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="mf">21.0</span><span class="p">,</span><span class="mf">30.0</span><span class="p">,</span><span class="s2">&quot;m&quot;</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+
+
+    <span class="n">_stock</span><span class="o">+</span><span class="n">jeans</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">pull</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">blouse</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">pantalon</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">robe</span>
+
+    <span class="n">_stock</span><span class="o">+</span><span class="n">jupe</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">chemise</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">sweat</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">costume</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">cravate</span>
+
+    <span class="n">_stock</span><span class="o">+</span><span class="n">tailleur</span>
+    <span class="n">_stock</span><span class="o">+</span><span class="n">uniforme</span>
+
+
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">blouse</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">pull</span><span class="p">)</span>
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">pull</span><span class="p">)</span>
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">pull</span><span class="p">)</span>
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">pull</span><span class="p">)</span>
+    <span class="n">_Historique</span><span class="o">.</span><span class="n">Out</span><span class="p">(</span><span class="n">blouse</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span>
+       
+    
+
+    <span class="n">mainFen</span> <span class="o">=</span> <span class="n">baseRoot</span><span class="p">(</span><span class="n">_stock</span><span class="p">,</span> <span class="n">_Historique</span><span class="p">,</span> <span class="n">_emp</span><span class="p">)</span>
+
+    <span class="n">mainFen</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span> 
+    
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Rochez Justin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+    </div>
+  </body>
+</html>

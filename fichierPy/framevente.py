@@ -47,7 +47,7 @@ class FrmVente(Frame):
         self.l = LabelFrame(self, text="Gestion des ventes", padx=10, pady=5)
 
         self.FrFond = Frame(self.l,relief = GROOVE, border = 2,  bg =CouleurBlanc)
-        self.FrFond.pack (ipadx = 223, ipady =17)
+        self.FrFond.pack (ipadx = 233, ipady =17)
 
         self.frmScan = Frame(self.FrFond, bg =CouleurBlanc)
         self.frmScan.pack(fill = X, expand = 1)
@@ -61,12 +61,12 @@ class FrmVente(Frame):
         for i,k in enumerate(self.key):
             self.tree.heading('#%s' %(i),text = k)
             if k[0] not in ["T","P","Q","C"]:
-                self.tree.column('#%s' %(i), minwidth=129,width=129)
+                self.tree.column('#%s' %(i), minwidth=133,width=133)
             else:
                 self.tree.column('#%s' %(i), minwidth=85,width=85)  
        
         
-        self.tree.pack()
+        self.tree.pack(ipadx= 1)
        
         
         self.frmButton = Frame(self.parent.frmButton, bg = CouleurBlanc)
@@ -86,8 +86,8 @@ class FrmVente(Frame):
         self.labInfo = Label(self.frmFooter,textvariable = self.info, bg = CouleurBlanc,width = 89, relief = "ridge", height= 4)
         self.labInfo.grid(row = 0, column = 0)
 
-        self.frmPrice = Frame(self.frmFooter, relief = GROOVE, border = 2)
-        self.frmPrice.grid(row = 0, column = 1)
+        self.frmPrice = Frame(self.frmFooter, relief = GROOVE, border = 2, bg= CouleurBlanc)
+        self.frmPrice.grid(row = 0, column = 1,ipadx =13)
 
         self.FooterHTVA = StringVar()
         self.FooterHTVA.set("0.00")
@@ -112,7 +112,7 @@ class FrmVente(Frame):
         Label(self.frmScan,text= "Quantité :",bg =CouleurBlanc,width =widthLabel, anchor="w").grid(column = 0, row = 1,padx = 20, pady = 1)
         self.lstArticle =[vetm.idVet for vetm in self.parent.stock.lstVetement]
         for e in self.parent.stock.lstEnsemble:
-            self.lstArticle.append(e.idEns)
+            self.lstArticle.append(e.idVet)
         self.idVetEntry = ttk.Combobox(self.frmScan,width = widthCombo,values = self.lstArticle)
         self.idVetEntry.grid(column = 1, row = 0,padx = 20, pady = 1)
         self.idVetEntry.bind("<Return>",self.addObjet)
@@ -122,7 +122,7 @@ class FrmVente(Frame):
         ttk.Button(self.frmScan, text ="Scanner" , command = self.addObjet).grid(row = 0, rowspan = 2, column = 2)
 
     def test(self):
-        print("test ok")
+        messagebox.showinfo("TSS", "application en construction")
 
     def supprimerArticle(self):
         """fonction de suppression d'un article de la treeview
@@ -177,7 +177,7 @@ class FrmVente(Frame):
             self.tree.insert('', 'end' ,None, text=v.idVet,values = [v.libelle,v.marque, v.taille,v.categorie, \
                         v.couleur,v.quantite,v.prixTVAC(),v.tauxTVA])
         for v in self.ticket.lstEnsemble:
-            ens = self.tree.insert('', 'end' ,None, text=v.idEns,values = [v.libelle,'','','','',v.quantite,v.prixTVAC(),v.tauxTVA])
+            ens = self.tree.insert('', 'end' ,None, text=v.idVet,values = [v.libelle,'','','','',v.quantite,v.prixTVAC(),v.tauxTVA])
             for o in v.lstVetement:
                 self.tree.insert(ens, 'end' ,None, text=o.idVet,values = [o.libelle,o.marque, o.taille,o.categorie, o.couleur, o.quantite,o.prixTVAC(), o.tauxTVA])
         self.FooterHTVA.set(self.ticket.calculValeur())
@@ -195,7 +195,7 @@ class FrmVente(Frame):
             #self.parent.stock.get(v.idVet).quantite -= v.quantite
             self.parent.Historique.Out(v,v.quantite)
         for e in self.ticket.lstEnsemble:
-            #self.parent.stock.get(e.idEns).quantite -= e.quantite
+            #self.parent.stock.get(e.idVet).quantite -= e.quantite
             self.parent.Historique.Out(e,e.quantite)
         self.viderPanier()
     
@@ -225,7 +225,7 @@ class FrmVente(Frame):
             MonTicket += "\n%-3s%2s%-8s%2s%-37s%2s%7s%2s%7s" %(v.quantite," ",v.idVet," ",v.libelle," ",Decimal(v.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)\
                 ," ",Decimal(v.prixHTVA*v.quantite).quantize(Decimal('.01'), rounding=ROUND_HALF_UP))
         for e in self.ticket.lstEnsemble:
-            MonTicket += "\n%-3s%2s%-8s%2s%-37s%2s%7s%2s%7s" %(e.quantite," ",e.idEns," ",e.libelle," ",Decimal(e.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)\
+            MonTicket += "\n%-3s%2s%-8s%2s%-37s%2s%7s%2s%7s" %(e.quantite," ",e.idVet," ",e.libelle," ",Decimal(e.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)\
                 ," ",Decimal(e.prixHTVA*e.quantite).quantize(Decimal('.01'), rounding=ROUND_HALF_UP))
             for v in e.lstVetement:
                 MonTicket += "\n%3s%2s%8s%4s%-35s%2s%7s%2s%7s" %(v.quantite," ",v.idVet," ",v.libelle," ",Decimal(v.prixHTVA).quantize(Decimal('.01'), rounding=ROUND_HALF_UP)\

@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>fichierPy.framelogin &#8212; Documentation TSS 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/groundwork.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for fichierPy.framelogin</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">## author :Becquet Emilien</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Frame de connexion</span>
+<span class="sd">--------------------------</span>
+<span class="sd">Documentation Générale</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">LabelFrame</span><span class="p">,</span><span class="n">Frame</span><span class="p">,</span><span class="n">Label</span><span class="p">,</span><span class="n">Pack</span><span class="p">,</span><span class="n">Entry</span><span class="p">,</span><span class="n">messagebox</span><span class="p">,</span><span class="n">RIGHT</span><span class="p">,</span><span class="n">StringVar</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="c1">#from common import Admin,User</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="c1">########Global########## </span>
+<span class="n">CouleurBlanc</span> <span class="o">=</span> <span class="s2">&quot;#FFFFFF&quot;</span>
+<span class="n">CouleurBleu</span> <span class="o">=</span><span class="s2">&quot;#33b8ff&quot;</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">widthSpinBox</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">widthEntry</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="n">widthLabel</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">widthCombo</span> <span class="o">=</span> <span class="mi">20</span>
+
+
+<div class="viewcode-block" id="FrmAcceuil"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil">[docs]</a><span class="k">class</span> <span class="nc">FrmAcceuil</span><span class="p">(</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Classe servant pour l&#39;interface graphique TK&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parent</span><span class="p">):</span>     <span class="c1">#Création du Frame Accueil</span>
+        <span class="n">Frame</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="c1">#Frame(self).pack(pady = 50)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span> <span class="o">=</span> <span class="n">LabelFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Connexion&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;groove&quot;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span> <span class="o">=</span> <span class="n">LabelFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;inscription&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;groove&quot;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span> <span class="o">=</span> <span class="n">LabelFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Login&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;groove&quot;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">ipadx</span><span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">ipady</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="c1">######FrameAcceuil###########</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_acc</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Bienvenue sur le TSS !&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_acc</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1">#Bouton qui envoie sur le frame Connex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_connex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Connexion&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">FrameConnex</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_connex</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1">#Bouton qui envoie sur le frame Inscription</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_inscri</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Inscription&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">FrameInscription</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_inscri</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_quit</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Quitter&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">quit</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_quit</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1">######end FrameAcceuil######</span>
+        <span class="c1">######FrameConnection#######</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_user</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nom d&#39;utilisateur :&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_user</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_user</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_user</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_password</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Mot de passe :&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_password</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_password</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_password</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_connex</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Connexion&quot;</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">)</span> <span class="c1">#Ajouter la commande permettant d&#39;accéder au menu d&#39;utilisateur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_connex</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_annuler</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Annuler&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">AnnulerConnex</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_annuler</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1">######end FrameConnection###</span>
+        <span class="c1">######FrameInscription######</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_name</span><span class="o">=</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nom : &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_name</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_name</span><span class="o">=</span><span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_name</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_username</span><span class="o">=</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Nom d&#39;utilisateur : &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_username</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_username</span><span class="o">=</span><span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_username</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_newPW</span><span class="o">=</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Mot de passe : &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_newPW</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_newPW</span><span class="o">=</span><span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_newPW</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_confirmPW</span><span class="o">=</span><span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Confirmez votre mot de passe : &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_confirmPW</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_confirmPW</span><span class="o">=</span><span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_confirmPW</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_valider</span><span class="o">=</span><span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Valider&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ConfirmInscri</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_valider</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_annuler</span><span class="o">=</span><span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Annuler&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">AnnulerConnex</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_annuler</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="c1">######end FrameInscription##</span>
+<div class="viewcode-block" id="FrmAcceuil.changeFrame"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.changeFrame">[docs]</a>    <span class="k">def</span> <span class="nf">changeFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">frmToOpen</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>    <span class="c1">#Cache le frame d&#39;accueil</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="n">frmToOpen</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">ipadx</span><span class="o">=</span> <span class="mi">25</span> <span class="p">,</span> <span class="n">ipady</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FrmAcceuil.FrameConnex"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.FrameConnex">[docs]</a>    <span class="k">def</span> <span class="nf">FrameConnex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>      <span class="c1">#Création du Frame Connexion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changeFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_connex</span><span class="p">)</span>       </div>
+
+<div class="viewcode-block" id="FrmAcceuil.AnnulerConnex"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.AnnulerConnex">[docs]</a>    <span class="k">def</span> <span class="nf">AnnulerConnex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>      <span class="c1"># Optimisation du bouton annuler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changeFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="p">)</span>   <span class="c1">#Cache le frame de connexion</span></div>
+        <span class="c1">#self.FrameAccueil()     #Renvoie au frame d&#39;accueil</span>
+        
+<div class="viewcode-block" id="FrmAcceuil.FrameInscription"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.FrameInscription">[docs]</a>    <span class="k">def</span> <span class="nf">FrameInscription</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>     <span class="c1">#Création du Frame Inscription</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changeFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FrmAcceuil.ConfirmInscri"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.ConfirmInscri">[docs]</a>    <span class="k">def</span> <span class="nf">ConfirmInscri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#Confirme l&#39;inscription</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">user</span><span class="o">=</span><span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_name</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_username</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pw1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_newPW</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pw2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_confirmPW</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pw1</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">pw2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">AjoutList</span><span class="p">()</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Inscription&quot;</span><span class="p">,</span> <span class="s2">&quot;Bienvenue Utilisateur </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">user</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">userActif</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">user</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_inscri</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_name</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_username</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_newPW</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_confirmPW</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="c1">#self.FrameAccueil()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_acc</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Affiche un message d&#39;erreur sur la confirmation du mot de passe. Doit être optimisée</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Inscription&quot;</span><span class="p">,</span> <span class="s2">&quot;Les Passwords doivent correspondre&quot;</span><span class="p">)</span></div>
+            <span class="c1">#print(&quot;les mots de passes ne correspondent pas&quot;)</span>
+
+<div class="viewcode-block" id="FrmAcceuil.login"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">acces</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">userName</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_user</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">password</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_password</span><span class="o">.</span><span class="n">get</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">userActif</span> <span class="o">=</span> <span class="n">u</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">entry_user</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">entry_password</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+                <span class="n">acces</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">acces</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_user</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry_password</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Login&quot;</span><span class="p">,</span> <span class="s2">&quot;Utilisateur introuvable veuillez vous inscrire&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrmAcceuil.connect"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmUser</span><span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InfoUser</span> <span class="o">=</span> <span class="n">LabelFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frmUser</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Utilisateur&#39;</span><span class="p">,</span> <span class="n">relief</span><span class="o">=</span><span class="s2">&quot;groove&quot;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">bg</span> <span class="o">=</span><span class="n">CouleurBlanc</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InfoUser</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span> <span class="n">RIGHT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userName</span> <span class="o">=</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userName</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;User Name: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">userActif</span><span class="o">.</span><span class="n">userName</span><span class="p">))</span>
+        <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">InfoUser</span><span class="p">,</span> <span class="n">textvariable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">userName</span>  <span class="p">,</span><span class="n">bg</span> <span class="o">=</span><span class="n">CouleurBlanc</span><span class="p">,</span><span class="n">width</span> <span class="o">=</span><span class="n">widthLabel</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">columnspan</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">InfoUser</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;LogOut&quot;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logOut</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ttk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">InfoUser</span><span class="p">,</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Quitter&quot;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Quitter</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmUser</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">ipadx</span> <span class="o">=</span> <span class="mi">350</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">openTSS</span><span class="p">()</span></div>
+
+    
+
+<div class="viewcode-block" id="FrmAcceuil.logOut"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.logOut">[docs]</a>    <span class="k">def</span> <span class="nf">logOut</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">userActif</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frmUser</span><span class="o">.</span><span class="n">pack_forget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">closeTSS</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FrmAcceuil.Quitter"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.Quitter">[docs]</a>    <span class="k">def</span> <span class="nf">Quitter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FrmAcceuil.AjoutList"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.framelogin.FrmAcceuil.AjoutList">[docs]</a>    <span class="k">def</span> <span class="nf">AjoutList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#Crée et ajoute une liste avec les instructions d&#39;inscription</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pw1</span><span class="p">))</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>   
+    
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Rochez Justin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+    </div>
+  </body>
+</html>

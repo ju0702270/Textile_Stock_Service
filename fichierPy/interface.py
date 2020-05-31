@@ -10,7 +10,7 @@ from framelogin import User,FrmAcceuil
 from framegestionstock import FrmStock
 from framevente import FrmVente
 from framestatintegration import FrmStat
-from common import Stock,HistoriqueInOut,tableEmployee,Vetement,Ensemble
+from common import Stock,HistoriqueInOut,tableEmployee,Vetement,Ensemble,User
 from pathlib import Path
 #importTest
 from random import choice,randrange
@@ -43,7 +43,28 @@ class baseRoot(Tk):
         self.iconbitmap("{}\\TSS_logo-ConvertImage.ico".format(directory))
         self.frPosn = Frame(self) # Ceci est la Frame qui va permettre que le programme soit correctement centré
         self.frPosn.pack(side=LEFT)
+        ##### ici c'est uyn peu la base de données du programme avec 3 grosses tables
+        self.stock = _stockement
+        self.Historique = Historique
+        self.user= [] 
+        self.userActif = None
+
+        self.frm_Login = FrmAcceuil(self)
+        self.frm_Login.pack(fill=X, expand=1)# Frame du Login (Emilien)
         ###### Frame en bas à gauche avec le choix des menus Vente, stat etc
+
+
+    def closeTSS(self):
+        self.frPosn.pack_forget()
+        self.frm_Stock.pack_forget()
+        self.frm_Vente.pack_forget()
+        self.frm_Stat.pack_forget()
+        
+        self.frm_Login.pack(fill=X, expand=1)
+
+
+    def openTSS(self):
+        self.frPosn.pack(side=LEFT)
         self.frmMenu = Frame(self.frPosn, bg = CouleurBleu,relief = GROOVE, border = 2)
         self.frmMenu.grid(row = 1, column = 0, ipadx = 5 , ipady = 13)
         Frame(self.frmMenu,height = 30,bg = CouleurBleu).pack()
@@ -56,18 +77,14 @@ class baseRoot(Tk):
         self.btE=Button(self.frmMenu,text = "Gestion_employé",command = self.test, bg = CouleurBlanc, relief = GROOVE, width = 20)
         self.btE.pack(pady= 2)
         
-        ##### ici c'est uyn peu la base de données du programme avec 3 grosses tables
-        self.stock = _stockement
-        self.Historique = Historique
-        self.employe = tableEmp 
+        
         
         # Init de la Frame des boutons Dans votre Class vous passer le parametre de l'objet baseroot vous placez les boutons principaux dans cette frame. 
         self.frmButton = Frame(self.frPosn, bg = CouleurBlanc, relief = GROOVE, border = 2)
         self.frmButton.grid(row = 0, column = 0, ipadx = 30 , ipady = 23)
        
         ###### Toutes les Class FRAME
-        self.frm_Login = FrmAcceuil(self) 
-        #self.frm_Login.pack(fill=X, expand=1)# Frame du Login (Emilien)
+        
         self.frm_Vente = FrmVente(self)# Frame de la Gestion des ventes (???)
         #self.frm_Vente.pack()
         self.frm_Stock = FrmStock(self) #Frame de la gestion de stock ( Justin )
@@ -76,7 +93,7 @@ class baseRoot(Tk):
         self.frm_Stat = FrmStat(self) # Frame de la gestion des statistiques (Nassim)
         self.frm_Employé = "" # Frame de la gestion des Employe (???)
 
-        self.switchFrameStat()
+        self.switchFrameV()
 
 
 
@@ -86,7 +103,7 @@ class baseRoot(Tk):
     
 
     def test(self):
-        print("test interface")
+        messagebox.showinfo("TSS", "application en construction")
 
     def switchFrameStat(self):
         self.frm_Stock.frmButton.pack_forget()
@@ -152,7 +169,7 @@ if __name__ == "__main__":
          _stock.lstEnsemble[-1].addVet(_stock.lstVetement[randrange(0,len(_stock.lstVetement))])
          _stock.lstEnsemble[-1].addVet(_stock.lstVetement[randrange(0,len(_stock.lstVetement))])
 
-    
+
 
   
         

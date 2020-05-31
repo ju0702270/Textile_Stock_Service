@@ -39,7 +39,7 @@ class FrmStock(Frame):
         
         self.l = LabelFrame(self, text="Gestion_Stock", padx=10, pady=5)
         self.FrFond = Frame(self.l,relief = GROOVE, border = 2,  bg =CouleurBlanc)
-        self.FrFond.pack (ipadx = 42, ipady =5)
+        self.FrFond.pack (ipadx = 46, ipady =5)
 
         self.frmRecherche = Frame(self.FrFond, bg =CouleurBlanc)
         self.frmAjout = Frame(self.FrFond, bg =CouleurBlanc)
@@ -53,7 +53,7 @@ class FrmStock(Frame):
             if k[0] not in ["T","P","Q"]:
                 self.tree.column('#%s' %(i), minwidth=130,width=130)
             else:
-                self.tree.column('#%s' %(i), minwidth=63,width=63)  
+                self.tree.column('#%s' %(i), minwidth=65,width=65)  
        
         self.frmrecherche()
         self.tree.pack()
@@ -179,7 +179,7 @@ class FrmStock(Frame):
                         %(int(quantite.get()),self.parent.stock.lstVetement[int(self.tree.focus())]))
                     #self.parent.stock.lstVetement[int(self.tree.focus())].quantite = int(quantite.get())
                     self.parent.Historique.In(self.parent.stock.lstVetement[int(self.tree.focus())],int(quantite.get()))
-                    self.parent.stock.lstVetement[int(self.tree.focus())].quantite += int(quantite.get())
+                    #self.parent.stock.lstVetement[int(self.tree.focus())].quantite += int(quantite.get())
                     self.tree.bind("<Button-1>", self.frmajout)
                     self.recherche()
                     rootIn.destroy()
@@ -346,6 +346,7 @@ class FrmStock(Frame):
         """
         Fonction du bouton Rechercher, qui va rechercher un Vetement correspondant aux Input utilisateur dans l'objet stock
         """
+        
         self.idVetfrRech.config(values = [vetm.idVet for vetm in self.parent.stock.lstVetement])   
         self.libfrRech.config(values = [vetm.libelle for vetm in self.parent.stock.lstVetement])
         PrixMin = 0.0
@@ -414,12 +415,12 @@ class FrmStock(Frame):
             ttk.Button(self.frmRecherche, text ="Vetement" , command = self.updateStock).grid(row = 4, rowspan = 2, column = 4)
 
     def showEnsemble(self,event = None):
-        self.idVetfrRech.config(values = [Ens.idEns for Ens in self.parent.stock.lstEnsemble])
+        self.idVetfrRech.config(values = [Ens.idVet for Ens in self.parent.stock.lstEnsemble])
         self.libfrRech.config(values = [Ens.libelle for Ens in self.parent.stock.lstEnsemble])
 
         self.tree.delete(*self.tree.get_children())
         for i,Ens in enumerate(self.parent.stock.lstEnsemble):
-            self.tree.insert('', 'end', i , text=Ens.idEns,values = [Ens.libelle,'', Ens.quantite,Ens.prixHTVA, Ens.tauxTVA, '','','']) 
+            self.tree.insert('', 'end', i , text=Ens.idVet,values = [Ens.libelle,'', Ens.quantite,Ens.prixHTVA, Ens.tauxTVA, '','','']) 
 
 if __name__ == "__main__":
     pass          

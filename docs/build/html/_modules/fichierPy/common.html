@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>fichierPy.common &#8212; Documentation TSS 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/groundwork.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for fichierPy.common</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">## author : Rochez Justin,Dif Nassim, Becquet Emilien</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Common</span>
+<span class="sd">--------------------------</span>
+<span class="sd">Document avec les différentes Class commune</span>
+<span class="sd">Il représente la base du programme.</span>
+<span class="sd">Consigne: </span>
+<span class="sd">-Ne rien supprimer sans l&#39;accord des 2 autres.  au pire on mets en commentaire</span>
+<span class="sd">-Toutes modifications doit être vraiment bien testée. (ex: on améliore des lignes de code)</span>
+<span class="sd">-Ajouter est permis et encoragé. Attention à ne pas creer des fonctions ou procédure déja créée. </span>
+<span class="sd">-Votre Code doit être commenté correctement. </span>
+<span class="sd">-2 espaces entre les classe et 1 espace entre les fonctions et procedure. </span>
+<span class="sd">-Toutes les library se trouve en haut dans Import de library</span>
+<span class="sd">-Toutes les variables globales dans Variables Global (on en utilise le moins possible)</span>
+<span class="sd">-Ne dépassez pas les 170 caractères sur une ligne (pour rester lisible)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">##########Import de library ##############</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span> <span class="p">,</span><span class="n">ROUND_HALF_UP</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="c1">###########Variables globales #############</span>
+
+
+<span class="c1">##########Fin variables globales###########</span>
+
+
+
+<div class="viewcode-block" id="Stock"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock">[docs]</a><span class="k">class</span> <span class="nc">Stock</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;La Class Stock contient tout les objets Vetements. C&#39;est un peux la Table principale du programme</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#Liste contenant tout les vetements du stock. </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#Liste contenant tout les ensembles du stock. ATTENTION un ensemble est constitué de vetements. C&#39;est une composition</span>
+        
+
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vetement</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Ajoute un vetement à la liste sans risque d&#39;avoir 2 fois le même vetement (suivant l&#39;idVet)</span>
+<span class="sd">        ex: Stock + vetement = Stock.lstVetement.append(vetement) à condition que le EAN du vetements ne soit pas déja dans la liste. </span>
+<span class="sd">        </span>
+<span class="sd">        :param vetement: Le vetements qu&#39;on ajoute OU Ensemble </span>
+<span class="sd">        :type vetement: Vetement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vetement</span><span class="p">,</span><span class="n">Vetement</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vetement</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetement</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vetement</span><span class="p">)</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">vetm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetm</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetement</span><span class="o">.</span><span class="n">idVet</span><span class="p">):</span>
+                        <span class="n">vetm</span><span class="o">.</span><span class="n">quantite</span> <span class="o">+=</span> <span class="n">vetement</span><span class="o">.</span><span class="n">quantite</span>
+                        <span class="k">break</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vetement</span><span class="p">,</span><span class="n">Ensemble</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vetement</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetement</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vetement</span><span class="p">)</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">ens</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">ens</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetement</span><span class="o">.</span><span class="n">idVet</span><span class="p">):</span>
+                        <span class="n">ens</span><span class="o">.</span><span class="n">quantite</span> <span class="o">+=</span> <span class="n">vetement</span><span class="o">.</span><span class="n">quantite</span>
+                        <span class="k">break</span>
+    
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            
+
+<div class="viewcode-block" id="Stock.get"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span><span class="n">obj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;récupere un obj Vetement ou Ensemble dans le stock</span>
+
+<span class="sd">        :param id: id du vetment ou Ensemble</span>
+<span class="sd">        :type id: string</span>
+<span class="sd">        :return: objet Vetement/Ensemble</span>
+<span class="sd">        :rtype: Vetement/Ensemble</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">Vetement</span><span class="p">):</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">idVet</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">Ensemble</span><span class="p">):</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">idVet</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">Vet</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">Vet</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">Vet</span>
+        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">ens</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ens</span><span class="o">.</span><span class="n">idVet</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="p">:</span> 
+                    <span class="k">return</span> <span class="n">ens</span></div>
+
+<div class="viewcode-block" id="Stock.calculValeur"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock.calculValeur">[docs]</a>    <span class="k">def</span> <span class="nf">calculValeur</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calcul de la valeur total du stock HTVA</span>
+
+<span class="sd">        :return: la valeur monétaire du stock HTVA</span>
+<span class="sd">        :rtype: Decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">valeurStock</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">vtm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="n">valeurStock</span> <span class="o">+=</span> <span class="n">vtm</span><span class="o">.</span><span class="n">quantite</span> <span class="o">*</span> <span class="n">vtm</span><span class="o">.</span><span class="n">prixHTVA</span>
+        <span class="k">for</span> <span class="n">ens</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+            <span class="n">valeurStock</span> <span class="o">+=</span> <span class="n">ens</span><span class="o">.</span><span class="n">quantite</span> <span class="o">*</span> <span class="n">ens</span><span class="o">.</span><span class="n">prixHTVA</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">valeurStock</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stock.calculTVAC"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock.calculTVAC">[docs]</a>    <span class="k">def</span> <span class="nf">calculTVAC</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fonction qui calcul le prix TVAC total du stock</span>
+
+<span class="sd">        :return: le prix TVAC du stock</span>
+<span class="sd">        :rtype: decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prixTVAC</span><span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="n">prixTVAC</span> <span class="o">+=</span> <span class="n">v</span><span class="o">.</span><span class="n">prixTVAC</span><span class="p">()</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+            <span class="n">prixTVAC</span> <span class="o">+=</span> <span class="n">e</span><span class="o">.</span><span class="n">prixTVAC</span><span class="p">()</span><span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">prixTVAC</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stock.coutTVA"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock.coutTVA">[docs]</a>    <span class="k">def</span> <span class="nf">coutTVA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;fonction qui renvoi le cout total de la TVA</span>
+
+<span class="sd">        :return: le cout total de la TVA du stock</span>
+<span class="sd">        :rtype: decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cout</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="n">cout</span> <span class="o">+=</span> <span class="n">v</span><span class="o">.</span><span class="n">coutTVA</span><span class="p">()</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstEnsemble</span><span class="p">:</span>
+            <span class="n">cout</span> <span class="o">+=</span> <span class="n">e</span><span class="o">.</span><span class="n">coutTVA</span><span class="p">()</span><span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">cout</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div>
+
+  
+<div class="viewcode-block" id="Stock.lstNonRep"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Stock.lstNonRep">[docs]</a>    <span class="k">def</span> <span class="nf">lstNonRep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cree un disctionnaire non répétitif de plusieurs attribut de stock</span>
+<span class="sd">        </span>
+<span class="sd">        :return: disctionnaire de marque, color,car,taille,tva</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lstNonRep</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;marque&quot;</span><span class="p">,</span><span class="s2">&quot;color&quot;</span><span class="p">,</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span><span class="s2">&quot;taille&quot;</span><span class="p">,</span><span class="s2">&quot;tva&quot;</span><span class="p">]:</span>
+            <span class="n">lstNonRep</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">marque</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;marque&quot;</span><span class="p">]:</span>
+                <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;marque&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">marque</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">couleur</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]:</span>
+                <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">couleur</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">categorie</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">]:</span>
+                <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">categorie</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">taille</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;taille&quot;</span><span class="p">]:</span>
+                <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;taille&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">taille</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">tauxTVA</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;tva&quot;</span><span class="p">]:</span>
+                <span class="n">lstNonRep</span><span class="p">[</span><span class="s2">&quot;tva&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">tauxTVA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lstNonRep</span></div></div>
+
+
+<div class="viewcode-block" id="Vetement"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Vetement">[docs]</a><span class="k">class</span> <span class="nc">Vetement</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;class qui représente le vêtement, les objets Vetements sont la base du programme</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">idVet</span><span class="p">,</span><span class="n">strLibelle</span><span class="p">,</span> <span class="n">strMarque</span><span class="p">,</span>  <span class="n">strCouleur</span><span class="p">,</span> <span class="n">strCategorie</span><span class="p">,</span> <span class="n">dblPrixHTVA</span><span class="p">,</span> <span class="n">dblTauxTVA</span><span class="p">,</span><span class="n">dblPrixAchat</span><span class="p">,</span> <span class="n">taille</span> <span class="o">=</span> <span class="s2">&quot;Unique&quot;</span><span class="p">,</span><span class="n">Quantite</span> <span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">lstAssorti</span> <span class="o">=</span> <span class="p">[]):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">idVet</span><span class="o">=</span> <span class="n">idVet</span> <span class="c1">#numero EAN unique à chaque Vetement</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libelle</span> <span class="o">=</span><span class="n">strLibelle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">marque</span><span class="o">=</span> <span class="n">strMarque</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">couleur</span><span class="o">=</span> <span class="n">strCouleur</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">categorie</span> <span class="o">=</span> <span class="n">strCategorie</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dblPrixHTVA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dblTauxTVA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prixAchat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">dblPrixAchat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taille</span> <span class="o">=</span> <span class="n">taille</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantite</span> <span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">Quantite</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstAssorti</span> <span class="o">=</span> <span class="n">lstAssorti</span> <span class="c1">#Le vetement self est bien assorti avec lstAssorti</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># si reduction, par défault = 1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstAllElement</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idVet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">libelle</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">marque</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">quantite</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">taille</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">categorie</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">couleur</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lstAssorti</span><span class="p">]</span>
+
+    
+<div class="viewcode-block" id="Vetement.updateLstAllElement"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Vetement.updateLstAllElement">[docs]</a>    <span class="k">def</span> <span class="nf">updateLstAllElement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Effectue un update dynamique de lstAllElment</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstAllElement</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">idVet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">libelle</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">marque</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">quantite</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">taille</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">categorie</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">couleur</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lstAssorti</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Vetement.addVetAssort"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Vetement.addVetAssort">[docs]</a>    <span class="k">def</span> <span class="nf">addVetAssort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vetm</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; fonction qui ajoute un vetement à la lstAssorti sans redondance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">vetm</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstAssorti</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lstAssorti</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vetm</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Utile pour afficher tous les attributs du Vetement. </span>
+<span class="sd">        par Exemple lors d&#39;un messagebox.showinfo</span>
+<span class="sd">        :return: La plupart des attributs du vetement chacun à la ligne</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Article:</span><span class="se">\n</span><span class="s2">EAN : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Libelle : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Marque : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Quantité : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Prix : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Taille : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Catégorie : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Couleur : </span><span class="si">%s</span><span class="s2">&quot;</span>\
+            <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idVet</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">libelle</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">marque</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">quantite</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">prixTVAC</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">taille</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">categorie</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">couleur</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Vetement.prixTVAC"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Vetement.prixTVAC">[docs]</a>    <span class="k">def</span> <span class="nf">prixTVAC</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;retourne le prix TVAC arrondi 2 chiffres après la virgule</span>
+<span class="sd">        le prix unitaire</span>
+<span class="sd">        </span>
+<span class="sd">        :return: retourne un prix 2 chiffres après la virgule</span>
+<span class="sd">        :rtype: Decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span><span class="o">/</span><span class="mf">100.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Vetement.coutTVA"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Vetement.coutTVA">[docs]</a>    <span class="k">def</span> <span class="nf">coutTVA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;fonction de calcul du cout de la TVA pour une quantité de 1</span>
+
+<span class="sd">        :return: le cout de la TVA</span>
+<span class="sd">        :rtype: Decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prixTVAC</span><span class="p">())</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="Ensemble"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble">[docs]</a><span class="k">class</span> <span class="nc">Ensemble</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;à améliorer</span>
+<span class="sd">    </span>
+<span class="sd">    :return: [description]</span>
+<span class="sd">    :rtype: [type]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">idVet</span><span class="p">,</span> <span class="n">lib</span><span class="p">,</span><span class="n">lstVetement</span><span class="p">,</span> <span class="n">quant</span> <span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idVet</span><span class="o">=</span> <span class="n">idVet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">libelle</span> <span class="o">=</span> <span class="n">lib</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span> <span class="o">=</span> <span class="n">lstVetement</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quantite</span> <span class="o">=</span> <span class="n">quant</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculPrixHTVA</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="Ensemble.calculPrixHTVA"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble.calculPrixHTVA">[docs]</a>    <span class="k">def</span> <span class="nf">calculPrixHTVA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;calcul de la valeur de l&#39;ensemble de vetement basé sur le prix HTVA de chaque vetement dans l&#39;ensemble.</span>
+
+<span class="sd">        :return: le prix HTVA de l&#39;ensemble</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prix</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+            <span class="n">prix</span> <span class="o">+=</span><span class="n">v</span><span class="o">.</span><span class="n">prixHTVA</span><span class="o">*</span><span class="n">v</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="k">return</span> <span class="n">prix</span></div>
+
+<div class="viewcode-block" id="Ensemble.addVet"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble.addVet">[docs]</a>    <span class="k">def</span> <span class="nf">addVet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">objVet</span><span class="p">,</span><span class="n">quant</span> <span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objVet</span><span class="p">,</span> <span class="n">Vetement</span><span class="p">):</span>
+            <span class="n">copyVet</span><span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">objVet</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">objVet</span><span class="o">.</span><span class="n">quantite</span> <span class="o">&gt;=</span> <span class="n">quant</span><span class="p">:</span>
+                <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span> <span class="o">=</span> <span class="n">quant</span>
+                <span class="n">objVet</span><span class="o">.</span><span class="n">quantite</span> <span class="o">-=</span> <span class="n">quant</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copyVet</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">copyVet</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copyVet</span><span class="p">)</span> 
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">vetm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">vetm</span><span class="o">.</span><span class="n">idVet</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">copyVet</span><span class="o">.</span><span class="n">idVet</span><span class="p">):</span>
+                            <span class="n">vetm</span><span class="o">.</span><span class="n">quantite</span> <span class="o">+=</span> <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span>
+                            <span class="k">break</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tva</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculPrixHTVA</span><span class="p">()</span></div>
+            
+
+<div class="viewcode-block" id="Ensemble.prixTVAC"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble.prixTVAC">[docs]</a>    <span class="k">def</span> <span class="nf">prixTVAC</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fonction qui retroune le prixTVAC de l&#39;ensemble</span>
+
+<span class="sd">        :return: une prix TVAC</span>
+<span class="sd">        :rtype: Decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span> <span class="o">*</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span><span class="o">/</span><span class="mf">100.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="Ensemble.tva"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble.tva">[docs]</a>    <span class="k">def</span> <span class="nf">tva</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fonction qui attribue le taux de TVA le plus élevé de la lstVetement</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tauxTVA</span><span class="o">=</span><span class="nb">sorted</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">tauxTVA</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lstVetement</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+    
+<div class="viewcode-block" id="Ensemble.coutTVA"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Ensemble.coutTVA">[docs]</a>    <span class="k">def</span> <span class="nf">coutTVA</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;fonction de calcul du cout de la TVA pour une quantité de 1</span>
+
+<span class="sd">        :return: le cout de la TVA</span>
+<span class="sd">        :rtype: Decimal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prixTVAC</span><span class="p">())</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">prixHTVA</span><span class="p">)</span><span class="o">.</span><span class="n">quantize</span><span class="p">(</span><span class="n">Decimal</span><span class="p">(</span><span class="s1">&#39;.01&#39;</span><span class="p">),</span> <span class="n">rounding</span><span class="o">=</span><span class="n">ROUND_HALF_UP</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="HistoriqueInOut"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.HistoriqueInOut">[docs]</a><span class="k">class</span> <span class="nc">HistoriqueInOut</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class conteneur, qui contient tout les lignes de transaction d&#39;entrée et sortie de stock</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:param self.idInOut = le numéro de la ligne, elle est unique dans la table HistoriqueInOut</span>
+<span class="sd">        :param self.lstInOutStock = La liste contenant tout les Objet InOutStock</span>
+<span class="sd">        :param self.lstLog = La liste contenant tout les Objet LogInOut pour les connexions </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idInOut</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstInOutStock</span><span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstLog</span> <span class="o">=</span><span class="p">[]</span>
+
+<div class="viewcode-block" id="HistoriqueInOut.In"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.HistoriqueInOut.In">[docs]</a>    <span class="k">def</span> <span class="nf">In</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vetement</span><span class="p">,</span><span class="n">quant</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Methode d&#39;incrémentation de la lstInOutStock en ajoutant un objet InOutStock. </span>
+<span class="sd">        Utilisation de copy.deepcopy afin de copier l&#39;objet Vetement et pouvoir changer son état sans toucher au reel Vetement.</span>
+
+<span class="sd">        :param Vetement: c&#39;est le vetement qu&#39;on entre dans le stock</span>
+<span class="sd">        :type Vetement: Vetement()</span>
+<span class="sd">        :param quant: la quantité du Vetement</span>
+<span class="sd">        :type quant: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>      
+        <span class="n">copyVet</span> <span class="o">=</span>  <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Vetement</span><span class="p">)</span>
+        <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">quant</span><span class="p">)</span>
+        <span class="n">Vetement</span><span class="o">.</span><span class="n">quantite</span> <span class="o">+=</span> <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idInOut</span> <span class="o">+=</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstInOutStock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InOutStock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idInOut</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">copyVet</span><span class="p">))</span></div>
+            
+<div class="viewcode-block" id="HistoriqueInOut.Out"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.HistoriqueInOut.Out">[docs]</a>    <span class="k">def</span> <span class="nf">Out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vetement</span><span class="p">,</span><span class="n">quant</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Methode d&#39;incrémentation de la lstInOutStock en ajoutant un objet InOutStock. </span>
+<span class="sd">        Utilisation de copy.deepcopy afin de copier l&#39;objet Vetement et pouvoir changer son état sans toucher au reel Vetement.</span>
+
+<span class="sd">        :param Vetement: c&#39;est le vetement qu&#39;on sort du stock</span>
+<span class="sd">        :type Vetement: Vetement()</span>
+<span class="sd">        :param quant: la quantité du Vetement</span>
+<span class="sd">        :type quant: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">copyVet</span> <span class="o">=</span>  <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Vetement</span><span class="p">)</span>
+        <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">quant</span><span class="p">)</span>
+        <span class="n">Vetement</span><span class="o">.</span><span class="n">quantite</span> <span class="o">-=</span> <span class="n">copyVet</span><span class="o">.</span><span class="n">quantite</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idInOut</span> <span class="o">+=</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstInOutStock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InOutStock</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idInOut</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">copyVet</span><span class="p">))</span></div></div>
+        
+
+
+<div class="viewcode-block" id="InOutStock"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.InOutStock">[docs]</a><span class="k">class</span> <span class="nc">InOutStock</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Les Object de transaction. à chaque entrée ou sortie de stock un object InOutStock doit être crée</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numId</span><span class="p">,</span> <span class="n">InOut</span><span class="p">,</span> <span class="n">vetm</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intNumInOutStock</span> <span class="o">=</span> <span class="n">numId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dateTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vetement</span> <span class="o">=</span> <span class="n">vetm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InOut</span> <span class="o">=</span> <span class="n">InOut</span> <span class="c1">#True = In False = Out</span>
+        <span class="c1">#self.quantHist = quant</span>
+    
+<div class="viewcode-block" id="InOutStock.juTestStr"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.InOutStock.juTestStr">[docs]</a>    <span class="k">def</span> <span class="nf">juTestStr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;ID: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">DateTime : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Vetement : </span><span class="si">%s</span><span class="se">\n</span><span class="s2">In ou Out : </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intNumInOutStock</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">dateTime</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">vetement</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">InOut</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="LogInOut"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.LogInOut">[docs]</a><span class="k">class</span> <span class="nc">LogInOut</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;les object de Log in ou Log out, a chaque fois qu&#39;un employée se connecte ou se déconnecte on en crée un</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numId</span><span class="p">,</span> <span class="n">InOut</span><span class="p">,</span> <span class="n">emp</span><span class="p">,</span> <span class="n">date_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intNumLog</span> <span class="o">=</span> <span class="n">numId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dateTimeLog</span> <span class="o">=</span> <span class="n">date_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">employee</span> <span class="o">=</span> <span class="n">emp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InOut</span> <span class="o">=</span> <span class="n">InOut</span></div>
+
+<div class="viewcode-block" id="tableEmployee"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.tableEmployee">[docs]</a><span class="k">class</span> <span class="nc">tableEmployee</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;à définir</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstEmp</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="Admin"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.Admin">[docs]</a><span class="k">class</span> <span class="nc">Admin</span><span class="p">:</span> <span class="c1">#Classe de l&#39;administrateur</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;ADMIN&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;SuperAdmin404&quot;</span></div>
+        
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">:</span> <span class="c1"># Classe de User encore inutilisée. En Test</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Admin&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">userName</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userName</span><span class="o">=</span><span class="n">userName</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">=</span><span class="n">password</span>
+
+<div class="viewcode-block" id="User.Rights"><a class="viewcode-back" href="../../fichierPy.html#fichierPy.common.User.Rights">[docs]</a>    <span class="k">def</span> <span class="nf">Rights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userRights</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Droits de l&#39;utilisateur : &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">userRights</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userRights</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userRights</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userRights</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>   
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Documentation TSS 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Rochez Justin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0.
+    </div>
+  </body>
+</html>

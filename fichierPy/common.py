@@ -55,11 +55,11 @@ class Stock:
         elif isinstance(vetement,Ensemble):
             if len(self.lstEnsemble) == 0:
                 self.lstEnsemble.append(vetement)
-            elif str(vetement.idEns) not in [str(e.idEns) for e in self.lstEnsemble]:
+            elif str(vetement.idVet) not in [str(e.idVet) for e in self.lstEnsemble]:
                 self.lstEnsemble.append(vetement) 
             else:
                 for ens in self.lstEnsemble:
-                    if str(ens.idEns) == str(vetement.idEns):
+                    if str(ens.idVet) == str(vetement.idVet):
                         ens.quantite += vetement.quantite
                         break
     
@@ -82,14 +82,14 @@ class Stock:
             if isinstance(obj,Vetement):
                 id = obj.idVet
             elif isinstance(obj,Ensemble):
-                id = obj.idEns
+                id = obj.idVet
         if str(id) in [str(v.idVet) for v in self.lstVetement]:
             for Vet in self.lstVetement:
                 if str(Vet.idVet) == str(id):
                     return Vet
-        elif str(id) in [str(e.idEns) for e in self.lstEnsemble]:
+        elif str(id) in [str(e.idVet) for e in self.lstEnsemble]:
             for ens in self.lstEnsemble:
-                if ens.idEns == str(id) : 
+                if ens.idVet == str(id) : 
                     return ens
 
     def calculValeur(self):
@@ -222,8 +222,8 @@ class Ensemble:
     :return: [description]
     :rtype: [type]
     """
-    def __init__(self,idEns, lib,lstVetement, quant =1):
-        self.idEns= idEns
+    def __init__(self,idVet, lib,lstVetement, quant =1):
+        self.idVet= idVet
         self.libelle = lib
         self.lstVetement = lstVetement
         self.quantite = quant
@@ -356,20 +356,28 @@ class tableEmployee:
     def __init__(self):
         self.lstEmp = []
 
-class Employe:
-    """a définir
-    """
-    pass
 
-
-class Admin(Employe):
-    """a définir
+class Admin: #Classe de l'administrateur
     
-    :param Employe: [description]
-    :type Employe: [type]
-    """
     def __init__(self):
-        super.__init__(self)
+        self.username = "ADMIN"
+        self.password = "SuperAdmin404"
+        
+class User: # Classe de User encore inutilisée. En Test
+    right = ("Admin", "User")
+
+    def __init__(self, name, userName, password):
+        self.name=name
+        self.userName=userName
+        self.password=password
+
+    def Rights(self, right):
+        self.userRights = input("Droits de l'utilisateur : ")
+        if self.userRights == 1:
+            self.userRights = right[0]
+        else:
+            self.userRights = right[1]
+        return self.userRights
 
 if __name__ == "__main__":
     pass   

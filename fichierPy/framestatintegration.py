@@ -27,7 +27,7 @@ class FrmStat(Frame):
         self.l = LabelFrame(self, text="Statistiques", padx=10, pady=5)
 
         self.FrFond = Frame(self.l,relief = GROOVE, border = 2,  bg =CouleurBlanc)
-        self.FrFond.pack (ipadx = 42, ipady =7)
+        self.FrFond.pack (ipadx = 47, ipady =7)
 
         self.FrameE=Frame(self.FrFond, bg =CouleurBlanc)
         self.FrameE.pack(fill = X, expand = 1)
@@ -366,4 +366,4 @@ class FrmStat(Frame):
         self.searchButton.grid(row=0,rowspan=4, column=4)
 
     def test(self):
-        print("test ok")
+        messagebox.showinfo("TSS", "application en construction")
